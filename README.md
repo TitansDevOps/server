@@ -63,6 +63,7 @@ $ npm run test:cov
 ## Referencias
 
 - Author - [Maicol Alvarez](https://github.com/maicolaa)
+- Author - [Ignacio Isturiz](https://github.com/Ignacio-Isturiz)
 
 
 ## License
