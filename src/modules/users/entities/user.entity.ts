@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
 @Entity('user')
 export class User {
@@ -26,7 +26,6 @@ export class User {
   @Column({ length: 20, nullable: false })
   phone: string;
 
-  @Column({ nullable: false, default: true})
+  @Column({ nullable: false, default: true })
   isActive: boolean;
-
 }

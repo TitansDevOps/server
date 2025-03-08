@@ -11,7 +11,7 @@ export class UsersService {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) { }
+  ) {}
 
   create(createUserDto: CreateUserDto) {
     return this.userRepository.save(createUserDto);
@@ -46,11 +46,10 @@ export class UsersService {
       }
 
       if (user.email != updateUserDto.email) {
-        let emailUser = await this.findOneByEmail(updateUserDto.email);
+        const emailUser = await this.findOneByEmail(updateUserDto.email);
         if (emailUser) {
           throw new BadRequestException(messages.userAlreadyExist);
-        }
-        else {
+        } else {
           user.email = updateUserDto.email;
         }
       }
@@ -71,9 +70,12 @@ export class UsersService {
         user.fullName = updateUserDto.fullName;
       }
 
-      return this.userRepository.save(user)
-    }
-    catch (error) {
+      if (updateUserDto.resetPassword === true && updateUserDto.password) {
+        user.password = updateUserDto.password;
+      }
+
+      return this.userRepository.save(user);
+    } catch (error) {
       throw new BadRequestException(messages.errorUpdateUser);
     }
   }
