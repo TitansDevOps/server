@@ -1,6 +1,6 @@
 import { config } from 'src/config';
 
-const LANGUAGE_ENGLISH = "english";
+const LANGUAGE_ENGLISH = 'english';
 
 const message = {
   outputEnglishMessages: {
@@ -39,6 +39,11 @@ const message = {
     tokenNoProvide: 'Token not provided',
     userRoleMissing: 'User role is missing',
     invalidToken: 'Invalid or expired token',
+
+    mailSendFail: 'Error sending mail',
+    mailSendSuccess: 'Mail sent successfully',
+    resetEmailSent: 'Reset email sent successfully',
+    passwordResetSuccess: 'Password reset successfully',
   },
 
   outputSpanishMessages: {
@@ -75,9 +80,14 @@ const message = {
     roleString: 'Tipo de dato de rol inválido',
     roleRequired: 'El rol es obligatorio',
 
-    tokenNoProvide:'No se envío el token de autenticación',
+    tokenNoProvide: 'No se envío el token de autenticación',
     userRoleMissing: 'No se encontro el rol',
     invalidToken: 'El token no es valido o expiró.',
+
+    mailSendFail: 'Error al enviar el correo',
+    mailSendSuccess: 'Correo enviado exitosamente',
+    resetEmailSent: 'Correo de restablecimiento enviado exitosamente',
+    passwordResetSuccess: 'Contraseña restablecida exitosamente',
   },
 };
 

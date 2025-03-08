@@ -1,7 +1,11 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'dotenv';
-import { POSTGRES,LOCALHOST_ENV, DATABASE_OPTIONS } from '@modules/admin/constants';
+import {
+  POSTGRES,
+  LOCALHOST_ENV,
+  DATABASE_OPTIONS,
+} from '@modules/admin/constants';
 
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';
@@ -10,6 +14,7 @@ import { jwtConstants } from './modules/auth/constants/jwt.constant';
 import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './modules/auth/guard/roles.guard';
 import { AuthGuard } from './modules/auth/guard/auth.guard';
+import { MailModule } from './modules/mail/mail.module';
 
 config();
 
@@ -51,6 +56,7 @@ config();
     }),
     AuthModule,
     UsersModule,
+    MailModule,
   ],
   controllers: [],
   providers: [

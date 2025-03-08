@@ -9,14 +9,15 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { Response } from 'express';
+import { BaseController } from '@modules/admin/admin.controller';
+
 import { ActiveUser } from '@modules/common/decorators/active-user.decorator';
 import { UserActiveInterface } from '@modules/common/interfaces/user-active.interface';
-import { Role } from '@modules/common/enums/rol.enum';
 import { AuthService } from '@modules/auth/auth.service';
-import { Auth } from '@modules/auth/decorators/auth.decorator';
 import { LoginDto } from '@modules/auth/dto/login.dto';
 import { RegisterDto } from '@modules/auth/dto/register.dto';
-import { BaseController } from '@modules/admin/admin.controller';
+import { ResetPasswordDto } from '@modules/auth/dto/reset-pass.dto';
+
 import { Public } from '@modules/auth/decorators/public.decorator';
 
 import { validate } from 'class-validator';
@@ -79,6 +80,31 @@ export class AuthController extends BaseController {
     } catch (error) {
       this.badRequestResponse(res, error.message, error);
       throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+    }
+  }
+
+  @Public()
+  @Post('forgot-password')
+  async forgotPassword(@Body('email') email: string, @Res() res: Response) {
+    try {
+      const response = await this.authService.sendResetPasswordEmail(email);
+      return this.successResponse(res, response.message, response);
+    } catch (error) {
+      this.badRequestResponse(res, error.message, error);
+    }
+  }
+
+  @Public()
+  @Post('reset-password')
+  async resetPassword(
+    @Body() resetPasswordDto: ResetPasswordDto,
+    @Res() res: Response,
+  ) {
+    try {
+      const response = await this.authService.resetPassword(resetPasswordDto);
+      return this.successResponse(res, response.message, response);
+    } catch (error) {
+      this.badRequestResponse(res, error.message, error);
     }
   }
 }
