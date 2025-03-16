@@ -4,8 +4,6 @@ import {
   Get,
   Post,
   Res,
-  HttpException,
-  HttpStatus,
   BadRequestException,
 } from '@nestjs/common';
 import { Response } from 'express';
@@ -48,7 +46,7 @@ export class AuthController extends BaseController {
       const response = await this.authService.register(registerDto);
       return this.createdResponse(res, messages.userCreated, response);
     } catch (error) {
-      this.badRequestResponse(res, error.message);
+      return this.handleError(res, error);
     }
   }
 
@@ -68,7 +66,7 @@ export class AuthController extends BaseController {
       const response = await this.authService.login(loginDto);
       return this.successResponse(res, messages.successLogin, response);
     } catch (error) {
-      this.badRequestResponse(res, error.message);
+      return this.handleError(res, error);
     }
   }
 
@@ -78,8 +76,7 @@ export class AuthController extends BaseController {
       const response = await this.authService.profile(user);
       return this.successResponse(res, messages.success, response);
     } catch (error) {
-      this.badRequestResponse(res, error.message, error);
-      throw new HttpException(error.message, HttpStatus.BAD_REQUEST);
+      this.handleError(res, error);
     }
   }
 
@@ -88,9 +85,9 @@ export class AuthController extends BaseController {
   async forgotPassword(@Body('email') email: string, @Res() res: Response) {
     try {
       const response = await this.authService.sendResetPasswordEmail(email);
-      return this.successResponse(res, response.message, response);
+      return this.successResponse(res, response.message, null);
     } catch (error) {
-      this.badRequestResponse(res, error.message, error);
+      this.handleError(res, error);
     }
   }
 
@@ -102,9 +99,9 @@ export class AuthController extends BaseController {
   ) {
     try {
       const response = await this.authService.resetPassword(resetPasswordDto);
-      return this.successResponse(res, response.message, response);
+      return this.successResponse(res, response.message, null);
     } catch (error) {
-      this.badRequestResponse(res, error.message, error);
+      this.handleError(res, error);
     }
   }
 }
