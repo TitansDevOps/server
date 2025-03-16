@@ -4,7 +4,6 @@ import { AppModule } from './app.module';
 import { ConfigModule } from '@nestjs/config';
 import { AllExceptionsFilter } from './modules/admin/all-exceptions.filter';
 
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const port = process.env.SERVER_PORT || 4000;

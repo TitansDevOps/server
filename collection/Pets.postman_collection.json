@@ -4,7 +4,7 @@
 		"name": "Pets",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "29370226",
-		"_collection_link": "https://jdm222.postman.co/workspace/d81a1810-d371-4198-a7be-fe8f7a352102/collection/29370226-14063a35-5703-43d3-92a9-7718a5d347fc?action=share&source=collection_link&creator=29370226"
+		"_collection_link": "https://jdm222.postman.co/workspace/JDM~d81a1810-d371-4198-a7be-fe8f7a352102/collection/29370226-14063a35-5703-43d3-92a9-7718a5d347fc?action=share&source=collection_link&creator=29370226"
 	},
 	"item": [
 		{
@@ -79,8 +79,27 @@
 								{
 									"listen": "test",
 									"script": {
+										"exec": [
+											"// Verifica si la respuesta es exitosa (código 200)\r",
+											"if (pm.response.code === 200) {\r",
+											"    // Parsea el cuerpo de la respuesta\r",
+											"    var responseBody = pm.response.json();\r",
+											"    \r",
+											"    // Extrae el token del cuerpo de la respuesta\r",
+											"    var token = responseBody.body.token;\r",
+											"    \r",
+											"    // Guarda el token en una variable de colección llamada \"TOKEN\"\r",
+											"    pm.collectionVariables.set(\"TOKEN\", token);\r",
+											"    \r",
+											"    // Opcional: Muestra un mensaje en la consola de Postman para confirmar que el token se ha guardado\r",
+											"    console.log(\"Token guardado en la variable de colección TOKEN: \" + token);\r",
+											"} else {\r",
+											"    // Si la respuesta no es exitosa, muestra un mensaje de error\r",
+											"    console.error(\"La respuesta no fue exitosa. Código de estado: \" + pm.response.code);\r",
+											"}"
+										],
 										"type": "text/javascript",
-										"exec": []
+										"packages": {}
 									}
 								}
 							],
@@ -99,7 +118,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"email\": \"johan@gmail.com\",\n    \"password\": \"Ma1234\"\n}",
+									"raw": "{\n    \"email\": \"maicolaroyave10@gmail.com\",\n    \"password\": \"Ma123456789\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -113,6 +132,58 @@
 									],
 									"path": [
 										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Forgot password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"maicolaroyave10@gmail.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}auth/forgot-password",
+									"host": [
+										"{{URL}}auth"
+									],
+									"path": [
+										"forgot-password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset password",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1haWNvbGFyb3lhdmUxMEBnbWFpbC5jb20iLCJpYXQiOjE3NDE0NjA5MzIsImV4cCI6MTc0MTQ2MjczMn0.zKNu-VOeeYrSu97aZ_1_yVKXrDtMtvvoUKTBE9Mvczg\",\r\n    \"password\": \"Ma123456789\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}auth/reset-password",
+									"host": [
+										"{{URL}}auth"
+									],
+									"path": [
+										"reset-password"
 									]
 								}
 							},
@@ -312,6 +383,74 @@
 									],
 									"path": [
 										"19"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mailer",
+					"item": [
+						{
+							"name": "sendMail",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"recipient\":[ \"maicolaroyave10@gmail.com\"],\r\n  \"action\": \"prueba\",\r\n  \"subject\": \"Hola prueba de petsDevOps\",\r\n  \"text\": \"Todos ustedes son mis hijos. ATT: Maicol AA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}mail/send",
+									"host": [
+										"{{URL}}mail"
+									],
+									"path": [
+										"send"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "logs",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}mail/logs",
+									"host": [
+										"{{URL}}mail"
+									],
+									"path": [
+										"logs"
 									]
 								}
 							},

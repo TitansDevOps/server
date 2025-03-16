@@ -1,8 +1,6 @@
 import { Transform } from 'class-transformer';
 import {
-  IsBoolean,
   IsEmail,
-  IsNumber,
   IsString,
   MinLength,
   IsNotEmpty,

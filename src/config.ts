@@ -2,7 +2,7 @@
  * Retrieve App configuration
  */
 
-import { LANGUAGE_ENGLISH } from "@modules/admin/constants";
+import { LANGUAGE_ENGLISH } from '@modules/admin/constants';
 
 export const config = {
   language: LANGUAGE_ENGLISH,
