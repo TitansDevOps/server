@@ -17,6 +17,7 @@ import { UpdateUserDto } from '@modules/users/dto/update-user.dto';
 
 import { messages } from 'src/messages/messages';
 import { Role } from '@modules/common/enums/rol.enum';
+import { resetPasswordTemplate } from '@modules/mail/templates/resetPasswordTemplate';
 
 /**
  * Auth service class: allow register and authenticate users at the system
@@ -131,13 +132,13 @@ export class AuthService {
 
     const resetUrl = `${this.URL_CLIENT}/reset-password?token=${resetToken}`;
     const subject = 'Restablecer contraseña';
-    const text = `Para restablecer tu contraseña, haz clic en este enlace: ${resetUrl}`;
-
+    const htmlTemplate = resetPasswordTemplate(resetUrl) 
+    
     const emailDTO: SendMailDto = {
       recipient: email,
       action: 'reset-password',
       subject,
-      text,
+      bodyMail: htmlTemplate
     };
 
     await this.mailService.sendMail(emailDTO);

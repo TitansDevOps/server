@@ -37,19 +37,19 @@ export class MailService {
   }
 
   async sendMail(sendMailDto: SendMailDto) {
-    const { recipient, action, subject, text } = sendMailDto;
+    const { recipient, action, subject, bodyMail } = sendMailDto;
     const recipients = Array.isArray(recipient) ? recipient : [recipient];
 
     const mailOptions = {
       from: this.fromMail,
       to: recipients.join(', '),
       subject,
-      text,
+      html: bodyMail,
     };
 
     const body = JSON.stringify({
       subject,
-      text,
+      bodyMail,
     });
 
     try {
@@ -71,7 +71,7 @@ export class MailService {
           recipient,
           action,
           status: this.statusMailFailed,
-          errorMessage: JSON.stringify(error),
+          errorMessage: error?.message || 'Unknow error',
           body: body,
         });
       }
