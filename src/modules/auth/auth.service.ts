@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 
@@ -32,14 +33,7 @@ export class AuthService {
     private readonly mailService: MailService,
   ) {}
 
-  async register({
-    fullName,
-    email,
-    password,
-    createdAt,
-    address,
-    phone,
-  }: RegisterDto) {
+  async register({ fullName, email, password, address, phone }: RegisterDto) {
     const user = await this.usersService.findOneByEmail(email);
 
     if (user) {
@@ -50,7 +44,7 @@ export class AuthService {
       fullName,
       email,
       password: await this.hashPassword(password),
-      createdAt: createdAt,
+      createdAt: new Date(),
       address: address,
       phone: phone,
       role: Role.USER,
@@ -103,7 +97,7 @@ export class AuthService {
     const user = await this.usersService.findOneByEmail(email);
 
     if (!user) {
-      throw new UnauthorizedException(messages.userNotFound);
+      throw new NotFoundException(messages.userNotFound);
     }
 
     return {
@@ -122,7 +116,7 @@ export class AuthService {
     const user = await this.usersService.findOneByEmail(email);
 
     if (!user) {
-      throw new BadRequestException(messages.userNotFound);
+      throw new NotFoundException(messages.userNotFound);
     }
 
     const payload = { email: user.email };
@@ -132,13 +126,13 @@ export class AuthService {
 
     const resetUrl = `${this.URL_CLIENT}/reset-password?token=${resetToken}`;
     const subject = 'Restablecer contraseña';
-    const htmlTemplate = resetPasswordTemplate(resetUrl) 
-    
+    const htmlTemplate = resetPasswordTemplate(user.fullName, resetUrl);
+
     const emailDTO: SendMailDto = {
       recipient: email,
       action: 'reset-password',
       subject,
-      bodyMail: htmlTemplate
+      bodyMail: htmlTemplate,
     };
 
     await this.mailService.sendMail(emailDTO);
@@ -155,7 +149,7 @@ export class AuthService {
       const user = await this.usersService.findOneByEmail(userEmail);
 
       if (!user) {
-        throw new BadRequestException(messages.userNotFound);
+        throw new NotFoundException(messages.userNotFound);
       }
 
       const hashedPassword = await this.hashPassword(password);

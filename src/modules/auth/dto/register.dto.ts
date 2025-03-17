@@ -29,9 +29,6 @@ export class RegisterDto {
   })
   password: string;
 
-  @IsNotEmpty({ message: messages.createdAtRequired })
-  createdAt: Date;
-
   @Transform(({ value }) => value.trim())
   @IsString({ message: messages.phoneString })
   @IsNotEmpty({ message: messages.phoneRequired })

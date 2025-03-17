@@ -44,6 +44,7 @@ const message = {
     mailSendSuccess: 'Mail sent successfully',
     resetEmailSent: 'Reset email sent successfully',
     passwordResetSuccess: 'Password reset successfully',
+    updateUser: 'User updated successfully',
   },
 
   outputSpanishMessages: {
@@ -88,6 +89,7 @@ const message = {
     mailSendSuccess: 'Correo enviado exitosamente',
     resetEmailSent: 'Correo de restablecimiento enviado exitosamente',
     passwordResetSuccess: 'Contraseña restablecida exitosamente',
+    updateUser: 'Usuario actualizado exitosamente',
   },
 };
 
