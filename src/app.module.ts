@@ -15,6 +15,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { RolesGuard } from './modules/auth/guard/roles.guard';
 import { AuthGuard } from './modules/auth/guard/auth.guard';
 import { MailModule } from './modules/mail/mail.module';
+import { FileModule } from '@modules/file/file.module';
 
 config();
 
@@ -57,6 +58,7 @@ config();
     AuthModule,
     UsersModule,
     MailModule,
+    FileModule,
   ],
   controllers: [],
   providers: [

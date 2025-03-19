@@ -460,6 +460,272 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "File",
+					"item": [
+						{
+							"name": "upload",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "files",
+											"type": "file",
+											"src": [],
+											"disabled": true
+										},
+										{
+											"key": "typeEntity",
+											"value": "PRODUCT",
+											"type": "text"
+										},
+										{
+											"key": "entityOwnerId",
+											"value": "2",
+											"type": "text"
+										},
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/C:/Users/maicol.alvarez/Downloads/02.03 Certificado-html - Maicol Arroyave (2).pdf",
+											"disabled": true
+										},
+										{
+											"key": "files",
+											"type": "file",
+											"src": "/C:/Users/maicol.alvarez/Downloads/reporteExogena2023 (3).xlsx",
+											"disabled": true
+										},
+										{
+											"key": "files",
+											"type": "file",
+											"src": "eaEOqr2g2/viva.jpeg"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{URL}}file/upload",
+									"host": [
+										"{{URL}}file"
+									],
+									"path": [
+										"upload"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get public file",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}public-files/user/1727908009898.pdf",
+									"host": [
+										"{{URL}}public-files"
+									],
+									"path": [
+										"user",
+										"1727908009898.pdf"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get private file",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}private-files/order/1728154489864.pdf",
+									"host": [
+										"{{URL}}private-files"
+									],
+									"path": [
+										"order",
+										"1728154489864.pdf"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "download",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}filesDirectory/download/17276388223220.pdf",
+									"host": [
+										"{{URL}}filesDirectory"
+									],
+									"path": [
+										"download",
+										"17276388223220.pdf"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"file\": [\r\n        {\"id\": 23},\r\n        {\"id\": 24},\r\n        {\"id\": 25}\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}file/delete",
+									"host": [
+										"{{URL}}file"
+									],
+									"path": [
+										"delete"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create disks",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}disk/create",
+									"host": [
+										"{{URL}}disk"
+									],
+									"path": [
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "getFilesByEntities",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"entity\": \"PRODUCT\",\r\n    \"idEntities\": [3,2]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}file/get/",
+									"host": [
+										"{{URL}}file"
+									],
+									"path": [
+										"get",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			],
 			"description": "Ecommerce Api collection where we can find all endpoint conection to our back ecommerce system in NestJS"
