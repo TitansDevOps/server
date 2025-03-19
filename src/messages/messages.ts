@@ -44,6 +44,7 @@ const message = {
     mailSendSuccess: 'Mail sent successfully',
     resetEmailSent: 'Reset email sent successfully',
     passwordResetSuccess: 'Password reset successfully',
+    updateUser: 'User updated successfully',
 
     successFileUpload: 'File uploaded successfully',
     errorFileUpload: 'You must upload at least one file',
@@ -53,8 +54,6 @@ const message = {
     errorFileNotFound: 'File not found',
     errorGettingFilePath: 'Error getting file path',
     successCreateDisk: 'Disk created successfully',
-
-
   },
 
   outputSpanishMessages: {
@@ -99,6 +98,7 @@ const message = {
     mailSendSuccess: 'Correo enviado exitosamente',
     resetEmailSent: 'Correo de restablecimiento enviado exitosamente',
     passwordResetSuccess: 'Contraseña restablecida exitosamente',
+    updateUser: 'Usuario actualizado exitosamente',
 
     successFileUpload: 'Archivos subidos correctamente',
     errorFileUpload: 'Debe subir al menos un archivo',

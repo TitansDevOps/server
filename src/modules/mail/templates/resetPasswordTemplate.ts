@@ -1,4 +1,7 @@
-export const resetPasswordTemplate = (resetUrl: string): string => `
+export const resetPasswordTemplate = (
+  fullName: string,
+  resetUrl: string,
+): string => `
     <!DOCTYPE html>
     <html lang="es">
     <head>
@@ -74,7 +77,7 @@ export const resetPasswordTemplate = (resetUrl: string): string => `
         <div class="container">
             <img src="https://thumbs.dreamstime.com/z/logo-de-adopci%C3%B3n-perro-adoptar-no-comprar-cartel-la-organizaci%C3%B3n-perros-cachorros-solitarios-esperando-al-due%C3%B1o-rescatar-169252687.jpg?ct=jpeg" alt="Logo Adopta" class="logo">
             <h1 class="header">¿Olvidaste tu contraseña? 🐾</h1>
-            <p class="message">Hola,</p>
+            <p class="message">Hola ${fullName},</p>
             <p class="message">Parece que solicitaste restablecer tu contraseña. No te preocupes, te ayudaremos a recuperarla. 🐶💙</p>
             <p class="message">Haz clic en el botón de abajo para crear una nueva contraseña:</p>
             <a href="${resetUrl}" class="button">Restablecer Contraseña</a>

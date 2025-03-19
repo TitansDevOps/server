@@ -12,7 +12,6 @@ import { FileEntityDTO } from '@modules/file/file/dto/file-entity.dto';
 import { FileType } from '@modules/file/file/dto/file-entity.dto';
 import { ObjectFile } from '@modules/file/file/dto/file.dto';
 
-
 import { PublicFileEntity, PrivateFileEntity } from './utils/file.entities';
 import { FileRoutes } from '@modules/file/file/utils/file-routes';
 

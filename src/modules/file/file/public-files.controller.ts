@@ -5,7 +5,6 @@ import { existsSync } from 'fs';
 import { Public } from '@modules/auth/decorators/public.decorator';
 import { BaseController } from '@modules/admin/admin.controller';
 
-
 import { messages } from 'src/messages/messages';
 
 @Controller('public-files')

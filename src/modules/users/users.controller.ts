@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Put,
+  Res,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { Auth } from '@modules/auth/decorators/auth.decorator';
@@ -29,27 +30,42 @@ export class UsersController extends BaseController {
 
   @Auth(Role.ADMIN)
   @Get('getallusers')
-  findAll() {
-    return this.usersService.findAll();
+  async findAll(@Res() res: Response) {
+    try {
+      const users = await this.usersService.findAll();
+      return this.successResponse(res, messages.success, users);
+    } catch (error) {
+      return this.handleError(res, error);
+    }
   }
 
   @Auth(Role.ADMIN)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  async findOne(@Param('id') id: string, @Res() res: Response) {
+    try {
+      const response = await this.usersService.findOne(+id);
+      return this.successResponse(res, messages.success, response);
+    } catch (error) {
+      return this.handleError(res, error);
+    }
   }
 
   @Put(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: any, res: Response) {
+  async update(
+    @Param('id') id: string,
+    @Body() updateUserDto: any,
+    @Res() res: Response,
+  ) {
     try {
       const parsedId = parseInt(id, 10);
       if (isNaN(parsedId)) {
         throw new BadRequestException(messages.errorUpdateUser);
       }
       updateUserDto.id = parsedId;
-      return this.usersService.update(updateUserDto);
+      const updatedUser = await this.usersService.update(updateUserDto);
+      return this.successResponse(res, messages.updateUser, updatedUser);
     } catch (error) {
-      return this.badRequestResponse(res, messages.errorUpdateUser);
+      return this.handleError(res, error);
     }
   }
 }

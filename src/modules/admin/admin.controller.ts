@@ -1,4 +1,5 @@
 import { Response } from 'express';
+import { HttpException } from '@nestjs/common';
 
 export class BaseController {
   private now: string;
@@ -39,5 +40,34 @@ export class BaseController {
   // Respuesta 500 Internal Server Error
   internalServerErrorResponse(res: Response, message: string, body: any) {
     res.status(500).json({ timestamp: this.now, status: 500, message, body });
+  }
+
+  handleError(res: Response, error: any) {
+    if (error instanceof HttpException) {
+      const status = error.getStatus();
+      const message = error.message;
+
+      switch (status) {
+        case 400:
+          this.badRequestResponse(res, message, null);
+          break;
+        case 401:
+          this.unauthorizedResponse(res, message, null);
+          break;
+        case 403:
+          this.forbiddenResponse(res, message, null);
+          break;
+        case 404:
+          this.notFoundResponse(res, message, null);
+          break;
+        case 500:
+          this.internalServerErrorResponse(res, message, null);
+          break;
+        default:
+          this.internalServerErrorResponse(res, 'Internal server error', null);
+      }
+    } else {
+      this.internalServerErrorResponse(res, 'Internal server error', null);
+    }
   }
 }

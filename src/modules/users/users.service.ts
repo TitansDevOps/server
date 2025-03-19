@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -28,55 +32,76 @@ export class UsersService {
     });
   }
 
-  findAll() {
-    return this.userRepository.find();
+  async findAll() {
+    const users = await this.userRepository.find();
+    return users.map((user) => {
+      const { id, fullName, email, role, createdAt, address, phone } = user;
+      return { id, fullName, email, role, createdAt, address, phone };
+    });
   }
 
   async findOne(id: number) {
-    return await this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({ where: { id } });
+    if (!user) {
+      throw new NotFoundException(messages.userNotFound);
+    }
+    return {
+      id,
+      fullName: user.fullName,
+      email: user.email,
+      role: user.role,
+      createdAt: user.createdAt,
+      address: user.address,
+      phone: user.phone,
+    };
   }
 
   async update(updateUserDto: UpdateUserDto) {
-    try {
-      const id: number = updateUserDto.id;
-      const user = await this.userRepository.findOne({ where: { id } });
+    const id: number = updateUserDto.id;
+    const user = await this.userRepository.findOne({ where: { id } });
 
-      if (!user) {
-        throw new BadRequestException(messages.userNotFound);
-      }
-
-      if (user.email != updateUserDto.email) {
-        const emailUser = await this.findOneByEmail(updateUserDto.email);
-        if (emailUser) {
-          throw new BadRequestException(messages.userAlreadyExist);
-        } else {
-          user.email = updateUserDto.email;
-        }
-      }
-
-      if (updateUserDto.address) {
-        user.address = updateUserDto.address;
-      }
-
-      if (updateUserDto.isActive || !updateUserDto.isActive) {
-        user.isActive = updateUserDto.isActive;
-      }
-
-      if (updateUserDto.phone) {
-        user.phone = updateUserDto.phone;
-      }
-
-      if (updateUserDto.fullName) {
-        user.fullName = updateUserDto.fullName;
-      }
-
-      if (updateUserDto.resetPassword === true && updateUserDto.password) {
-        user.password = updateUserDto.password;
-      }
-
-      return this.userRepository.save(user);
-    } catch (error) {
-      throw new BadRequestException(messages.errorUpdateUser);
+    if (!user) {
+      throw new NotFoundException(messages.userNotFound);
     }
+
+    if (user.email != updateUserDto.email) {
+      const emailUser = await this.findOneByEmail(updateUserDto.email);
+      if (emailUser) {
+        throw new BadRequestException(messages.userAlreadyExist);
+      } else {
+        user.email = updateUserDto.email;
+      }
+    }
+
+    if (updateUserDto.address) {
+      user.address = updateUserDto.address;
+    }
+
+    if (updateUserDto.isActive || !updateUserDto.isActive) {
+      user.isActive = updateUserDto.isActive;
+    }
+
+    if (updateUserDto.phone) {
+      user.phone = updateUserDto.phone;
+    }
+
+    if (updateUserDto.fullName) {
+      user.fullName = updateUserDto.fullName;
+    }
+
+    if (updateUserDto.resetPassword === true && updateUserDto.password) {
+      user.password = updateUserDto.password;
+    }
+
+    const newUser = await this.userRepository.save(user);
+    return {
+      id: newUser.id,
+      fullName: newUser.fullName,
+      email: newUser.email,
+      role: newUser.role,
+      createdAt: newUser.createdAt,
+      address: newUser.address,
+      phone: newUser.phone,
+    };
   }
 }

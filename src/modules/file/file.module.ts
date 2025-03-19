@@ -15,13 +15,7 @@ import { DiskService } from '@modules/file/disk/disk.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([
-      User,
-      File,
-      FileEntity,
-      FileEntityOwner,
-      Disk,
-    ]),
+    TypeOrmModule.forFeature([User, File, FileEntity, FileEntityOwner, Disk]),
   ],
   controllers: [
     FileController,
@@ -29,10 +23,7 @@ import { DiskService } from '@modules/file/disk/disk.service';
     PublicFileController,
     DiskController,
   ],
-  providers: [
-    FileService,
-    DiskService,
-  ],
+  providers: [FileService, DiskService],
   exports: [FileService],
 })
 export class FileModule {}
