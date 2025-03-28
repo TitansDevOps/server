@@ -45,6 +45,15 @@ const message = {
     resetEmailSent: 'Reset email sent successfully',
     passwordResetSuccess: 'Password reset successfully',
     updateUser: 'User updated successfully',
+
+    successFileUpload: 'File uploaded successfully',
+    errorFileUpload: 'You must upload at least one file',
+    successFileDelete: 'Files deleted successfully',
+
+    errorFileEntityNotFound: 'File entity not found',
+    errorFileNotFound: 'File not found',
+    errorGettingFilePath: 'Error getting file path',
+    successCreateDisk: 'Disk created successfully',
   },
 
   outputSpanishMessages: {
@@ -90,6 +99,15 @@ const message = {
     resetEmailSent: 'Correo de restablecimiento enviado exitosamente',
     passwordResetSuccess: 'Contraseña restablecida exitosamente',
     updateUser: 'Usuario actualizado exitosamente',
+
+    successFileUpload: 'Archivos subidos correctamente',
+    errorFileUpload: 'Debe subir al menos un archivo',
+    successFileDelete: 'Los archivos se han eliminado correctamente',
+    errorFileEntityNotFound: 'Entidad de archivo no encontrada',
+
+    errorFileNotFound: 'Archivo no encontrado',
+    errorGettingFilePath: 'Error al obtener la ruta del archivo',
+    successCreateDisk: 'Disco creado correctamente',
   },
 };
 
