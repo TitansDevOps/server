@@ -17,6 +17,8 @@ import { AuthGuard } from './modules/auth/guard/auth.guard';
 import { MailModule } from './modules/mail/mail.module';
 import { FileModule } from '@modules/file/file.module';
 
+import { AppController } from '@modules/admin/app.controller';
+
 config();
 
 @Module({
@@ -60,7 +62,7 @@ config();
     MailModule,
     FileModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,
