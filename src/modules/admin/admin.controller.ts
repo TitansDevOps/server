@@ -2,7 +2,7 @@ import { Response } from 'express';
 import { HttpException } from '@nestjs/common';
 
 export class BaseController {
-  private now: string;
+  private readonly now: string;
   public constructor() {
     this.now = new Date().toISOString();
   }
