@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/TitansDevOps/server/compare/v1.1.0...v1.1.1) (2025-03-29)
+
+
+### Bug Fixes
+
+* release ([6a39ed7](https://github.com/TitansDevOps/server/commit/6a39ed78e9192ad44231f106a43c7b6920504f99))
+
 ## [1.1.0](https://github.com/TitansDevOps/server/compare/v1.0.0...v1.1.0) (2025-03-29)
 
 
