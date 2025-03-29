@@ -1,0 +1,82 @@
+name: CI/CD Deploy
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: mantum
+          POSTGRES_PASSWORD: gatostem123
+          POSTGRES_DB: pets
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U mantum"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Generate .env file
+        run: |
+          echo "URL_CLIENT=http://localhost:3000" > .env
+          echo "SERVER_PORT=4001" >> .env
+          echo "NODE_ENV=localhost" >> .env
+          echo "DB_HOST=localhost" >> .env
+          echo "DB_PORT=5432" >> .env
+          echo "DB_USERNAME=mantum" >> .env
+          echo "DB_PASSWORD=gatostem123" >> .env
+          echo "DB_NAME=pets" >> .env
+          echo "BREVO_SMTP_HOST=smtp-relay.brevo.com" >> .env
+          echo "BREVO_SMTP_PORT=587" >> .env
+          echo "BREVO_SMTP_USER=87872a001@smtp-brevo.com" >> .env
+          echo "BREVO_SMTP_PASSWORD=D9sZmTxFtIrXRVgq" >> .env
+          echo "NOTIFICATION_EMAIL=petsdevops@gmail.com" >> .env
+
+      - name: Wait for PostgreSQL to be ready
+        run: |
+          for i in {1..30}; do
+            nc -z localhost 5432 && echo "Postgres is up" && exit 0
+            echo "Waiting for Postgres..."
+            sleep 2
+          done
+          echo "Postgres failed to start" && exit 1
+
+      - name: Run migrations
+        run: npm run migration:run
+
+      - name: Lint check
+        run: npm run lint
+
+      - name: Build the project
+        run: npm run build
+
+      - name: Start the application
+        run: npm start &
+
+      - name: Verify application is running
+        run: |
+          sleep 10
+          curl -f http://localhost:4001 || exit 1
