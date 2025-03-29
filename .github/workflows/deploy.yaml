@@ -64,9 +64,6 @@ jobs:
           done
           echo "Postgres failed to start" && exit 1
 
-      # - name: Run migrations
-      #   run: npm run migration:run
-
       - name: Lint check
         run: npm run lint
 
