@@ -1,0 +1,11 @@
+{
+    "branches": [
+      {
+        "branch": "main",
+        "releaseType": "simple",
+        "bumpMinorPreMajor": true
+      }
+    ],
+    "plugins": ["manifest"]
+  }
+  
