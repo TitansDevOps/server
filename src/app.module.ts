@@ -4,7 +4,6 @@ import { config } from 'dotenv';
 import {
   POSTGRES,
   LOCALHOST_ENV,
-  DATABASE_OPTIONS,
 } from '@modules/admin/constants';
 
 import { AuthModule } from './modules/auth/auth.module';
