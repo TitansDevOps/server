@@ -4,7 +4,6 @@ import { config } from 'dotenv';
 import {
   POSTGRES,
   LOCALHOST_ENV,
-  DATABASE_OPTIONS,
 } from '@modules/admin/constants';
 
 import { AuthModule } from './modules/auth/auth.module';
@@ -33,13 +32,10 @@ config();
           database: process.env.DB_NAME,
           autoLoadEntities: true,
           synchronize: true,
-          // solo para base remota
-          ssl: {
-            rejectUnauthorized: false,
-          },
-          extra: {
-            options: DATABASE_OPTIONS,
-          },
+          ssl:
+            process.env.DB_SSL === 'true'
+              ? { rejectUnauthorized: false }
+              : false,
         })
       : TypeOrmModule.forRoot({
           type: POSTGRES,
