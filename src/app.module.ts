@@ -4,7 +4,6 @@ import { config } from 'dotenv';
 import {
   POSTGRES,
   LOCALHOST_ENV,
-  DATABASE_OPTIONS,
 } from '@modules/admin/constants';
 
 import { AuthModule } from './modules/auth/auth.module';
@@ -16,6 +15,8 @@ import { RolesGuard } from './modules/auth/guard/roles.guard';
 import { AuthGuard } from './modules/auth/guard/auth.guard';
 import { MailModule } from './modules/mail/mail.module';
 import { FileModule } from '@modules/file/file.module';
+
+import { AppController } from '@modules/admin/app.controller';
 
 config();
 
@@ -57,7 +58,7 @@ config();
     MailModule,
     FileModule,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [
     {
       provide: APP_GUARD,
