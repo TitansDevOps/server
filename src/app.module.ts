@@ -1,10 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'dotenv';
-import {
-  POSTGRES,
-  LOCALHOST_ENV,
-} from '@modules/admin/constants';
+import { POSTGRES, LOCALHOST_ENV } from '@modules/admin/constants';
 
 import { AuthModule } from './modules/auth/auth.module';
 import { UsersModule } from './modules/users/users.module';

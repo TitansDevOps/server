@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, In } from 'typeorm';
 import { File } from '@modules/file/file/entities/file.entity';
@@ -18,9 +18,12 @@ import { FileRoutes } from '@modules/file/file/utils/file-routes';
 import { unlink } from 'fs';
 import * as fs from 'fs';
 import * as path from 'path';
+import { join } from 'path';
+import * as mime from 'mime-types';
+
 import { extname } from 'path';
 import { messages } from 'src/messages/messages';
-
+import { CreateFileEntityBase64Dto } from './dto/create-file-base64.dto';
 @Injectable()
 export class FileService {
   constructor(
@@ -60,10 +63,7 @@ export class FileService {
     }
 
     if (!fileEntityPrivate && !isPublic) {
-      throw new HttpException(
-        messages.errorFileEntityNotFound,
-        HttpStatus.BAD_REQUEST,
-      );
+      throw new BadRequestException(messages.errorFileEntityNotFound);
     }
 
     let fileEntity = await this.fileEntityRepository.findOne({
@@ -80,9 +80,12 @@ export class FileService {
 
     const savedFiles = [];
     let uploadsDir = isPublic
-      ? path.join(__dirname, '../../../uploads/public/')
-      : path.join(__dirname, '../../../uploads/private/');
-    uploadsDir = uploadsDir + createFileEntityDto.typeEntity.toLowerCase();
+      ? path.join(process.cwd(), 'uploads/public/')
+      : path.join(process.cwd(), 'uploads/private/');
+    uploadsDir = path.join(
+      uploadsDir,
+      createFileEntityDto.typeEntity.toLowerCase(),
+    );
 
     if (!fs.existsSync(uploadsDir)) {
       fs.mkdirSync(uploadsDir, { recursive: true });
@@ -105,6 +108,91 @@ export class FileService {
         this.fileRepository.create(fileInfo),
       );
       savedFiles.push(savedFile);
+      const fileEntityOwner = this.fileEntityOwnerRepository.create({
+        idEntity: fileEntity.id,
+        idFile: savedFile.id,
+      });
+      await this.fileEntityOwnerRepository.save(fileEntityOwner);
+    }
+
+    return savedFiles;
+  }
+
+  /**
+   * Save Files in the database and in the server using base64 data
+   * @param createFileEntityDto
+   */
+  async saveFilesBase64(createFileEntityDto: CreateFileEntityBase64Dto) {
+    const { files, typeEntity, entityOwnerId } = createFileEntityDto;
+
+    const fileEntityPublic = PublicFileEntity.find((fileEntity) => {
+      return fileEntity === createFileEntityDto.typeEntity;
+    });
+
+    const fileEntityPrivate = PrivateFileEntity.find((fileEntity) => {
+      return fileEntity === createFileEntityDto.typeEntity;
+    });
+
+    let filePathOrigin = `uploads/private/${typeEntity.toLowerCase()}/`;
+    let isPublic = false;
+    if (fileEntityPublic) {
+      isPublic = true;
+      filePathOrigin = `uploads/public/${typeEntity.toLowerCase()}/`;
+    }
+
+    if (!fileEntityPrivate && !isPublic) {
+      throw new BadRequestException(messages.errorFileEntityNotFound);
+    }
+
+    let fileEntity = await this.fileEntityRepository.findOne({
+      where: {
+        typeEntity: createFileEntityDto.typeEntity,
+        entityOwnerId: createFileEntityDto.entityOwnerId,
+      },
+    });
+
+    if (!fileEntity) {
+      fileEntity = this.fileEntityRepository.create(createFileEntityDto);
+      fileEntity = await this.fileEntityRepository.save(fileEntity);
+    }
+
+    let uploadsDir = isPublic
+      ? path.join(process.cwd(), 'uploads/public/')
+      : path.join(process.cwd(), 'uploads/private/');
+    uploadsDir = path.join(uploadsDir, typeEntity.toLowerCase());
+
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true });
+    }
+
+    const savedFiles = [];
+
+    for (const file of files) {
+      if (!file.base64) continue;
+
+      const fileExt = extname(file.name) || '.bin';
+      const mimeType = mime.lookup(fileExt) || 'application/octet-stream';
+      const randomName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${fileExt}`;
+      const filePath = join(uploadsDir, randomName);
+      const base64Data = file.base64.replace(/^data:[^;]+;base64,/, '');
+
+      fs.writeFileSync(filePath, Buffer.from(base64Data, 'base64'));
+
+      const fileInfo = {
+        name: file.name,
+        filename: randomName,
+        ext: fileExt.slice(1),
+        type: mimeType,
+        fileDate: new Date(),
+        size: Buffer.from(base64Data, 'base64').length,
+        filePath: filePathOrigin + randomName,
+      };
+
+      const savedFile = await this.fileRepository.save(
+        this.fileRepository.create(fileInfo),
+      );
+      savedFiles.push(savedFile);
+
       const fileEntityOwner = this.fileEntityOwnerRepository.create({
         idEntity: fileEntity.id,
         idFile: savedFile.id,
