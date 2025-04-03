@@ -123,7 +123,7 @@ export class FileService {
    * @param createFileEntityDto
    */
   async saveFilesBase64(createFileEntityDto: CreateFileEntityBase64Dto) {
-    const { files, typeEntity, entityOwnerId } = createFileEntityDto;
+    const { files, typeEntity } = createFileEntityDto;
 
     const fileEntityPublic = PublicFileEntity.find((fileEntity) => {
       return fileEntity === createFileEntityDto.typeEntity;
@@ -170,8 +170,18 @@ export class FileService {
     for (const file of files) {
       if (!file.base64) continue;
 
-      const fileExt = extname(file.name) || '.bin';
-      const mimeType = mime.lookup(fileExt) || 'application/octet-stream';
+      const detectedMime = file.base64.match(/^data:([^;]+);base64,/);
+      const mimeType = detectedMime
+        ? detectedMime[1]
+        : mime.lookup(file.name) || 'application/octet-stream';
+
+      let fileExt = extname(file.name);
+      if (!fileExt || fileExt === '.bin') {
+        fileExt = mime.extension(mimeType)
+          ? `.${mime.extension(mimeType)}`
+          : '.bin';
+      }
+
       const randomName = `${Date.now()}-${Math.round(Math.random() * 1e9)}${fileExt}`;
       const filePath = join(uploadsDir, randomName);
       const base64Data = file.base64.replace(/^data:[^;]+;base64,/, '');

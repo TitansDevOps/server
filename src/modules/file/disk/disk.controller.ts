@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Res, UseGuards } from '@nestjs/common';
 import { BaseController } from '@modules/admin/admin.controller';
 
 import { AuthGuard } from '@modules/auth/guard/auth.guard';
