@@ -91,4 +91,17 @@ export class ObjectFile {
   public async getWebPath() {
     return this.webPath;
   }
+
+  public async toJson(): Promise<object> {
+    return {
+      id: this.id,
+      entity: this.entity,
+      idEntity: this.idEntity,
+      fileDate: this.fileDate,
+      type: this.type,
+      size: this.size,
+      filePath: this.filePath,
+      webPath: this.webPath,
+    };
+  }
 }

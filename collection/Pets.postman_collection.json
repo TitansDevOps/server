@@ -771,6 +771,143 @@
 					]
 				},
 				{
+					"name": "Adoption center",
+					"item": [
+						{
+							"name": "findAll",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}adoption-centers",
+									"host": [
+										"{{URL}}adoption-centers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "findOne",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}adoption-centers/1",
+									"host": [
+										"{{URL}}adoption-centers"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Adoption Center 1\",\r\n    \"description\": \"desc\",\r\n    \"address\": \"Laureles - Medellín\",\r\n    \"phone\": \"312879122\",\r\n    \"email\": \"maicol.alvarez@mantum.com.co\",\r\n    \"website\": \"http//:github.com/maicolAA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}adoption-centers/create/",
+									"host": [
+										"{{URL}}adoption-centers"
+									],
+									"path": [
+										"create",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Adoption Center 1\",\r\n    \"description\": \"desc\",\r\n    \"address\": \"Laureles - Medellín\",\r\n    \"phone\": \"312879122\",\r\n    \"email\": \"maicol.alvarez@mantum.com.co\",\r\n    \"website\": \"http//:github.com/maicolAA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}adoption-centers/update/",
+									"host": [
+										"{{URL}}adoption-centers"
+									],
+									"path": [
+										"update",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "remove",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URL}}adoption-centers/1",
+									"host": [
+										"{{URL}}adoption-centers"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "healt",
 					"request": {
 						"method": "GET",

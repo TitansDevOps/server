@@ -57,6 +57,22 @@ const message = {
 
     diskPreexistent: 'Disks already exist in this server',
     errorInvalidFileFormat: 'Invalid file format',
+
+    propertyIDRequired: 'ID is required',
+    propertyNameRequired: 'Name is required',
+
+    propertyIDNumber: 'ID must be a number',
+    propertyNameString: 'Name must be a string',
+
+    attributeValueNotFound: 'Attribute value not found to update',
+    attributeNotFound: 'Attribute not found to update',
+
+    propertyDescriptionRequired: 'Description is required',
+
+    adoptionCenterNotFound: 'Adoption center not found',
+    adoptionCenterCreated: 'Adoption center created successfully',
+    adoptionCenterUpdated: 'Adoption center updated successfully',
+    adoptionCenterDeleted: 'Adoption center deleted successfully',
   },
 
   outputSpanishMessages: {
@@ -114,6 +130,21 @@ const message = {
 
     diskPreexistent: 'Los discos ya existen en este servidor',
     errorInvalidFileFormat: 'Formato de archivo no válido',
+
+    propertyIDRequired: 'ID es obligatorio',
+    propertyNameRequired: 'El nombre es obligatorio',
+    propertyIDNumber: 'ID debe ser un número',
+    propertyNameString: 'El nombre debe ser una cadena de texto',
+
+    attributeValueNotFound: 'Valor de atributo no encontrado para actualizar',
+    attributeNotFound: 'Atributo no encontrado para actualizar',
+
+    propertyDescriptionRequired: 'La descripción es obligatoria',
+
+    adoptionCenterNotFound: 'Centro de adopción no encontrado',
+    adoptionCenterCreated: 'Centro de adopción creado correctamente',
+    adoptionCenterUpdated: 'Centro de adopción actualizado correctamente',
+    adoptionCenterDeleted: 'Centro de adopción eliminado correctamente',
   },
 };
 

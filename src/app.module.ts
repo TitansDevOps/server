@@ -14,6 +14,7 @@ import { MailModule } from './modules/mail/mail.module';
 import { FileModule } from '@modules/file/file.module';
 
 import { AppController } from '@modules/admin/app.controller';
+import { AdoptioncenterModule } from '@modules/adoption-center/adoption-center.module';
 
 config();
 
@@ -54,6 +55,7 @@ config();
     UsersModule,
     MailModule,
     FileModule,
+    AdoptioncenterModule,
   ],
   controllers: [AppController],
   providers: [
