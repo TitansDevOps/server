@@ -18,6 +18,7 @@ import { messages } from 'src/messages/messages';
 import { AuthGuard } from '@modules/auth/guard/auth.guard';
 import { RolesGuard } from '@modules/auth/guard/roles.guard';
 import { BaseController } from '@modules/admin/admin.controller';
+import { CreateFileEntityBase64Dto } from './dto/create-file-base64.dto';
 
 @Controller('file')
 @UseGuards(AuthGuard, RolesGuard)
@@ -40,7 +41,29 @@ export class FileController extends BaseController {
       );
       this.createdResponse(res, messages.successFileUpload, response);
     } catch (error) {
-      this.badRequestResponse(res, messages.error, error);
+      this.badRequestResponse(
+        res,
+        error.message || messages.error,
+        error?.response,
+      );
+    }
+  }
+
+  @Post('upload-base64')
+  async uploadBase64Files(
+    @Body() createFileEntityDto: CreateFileEntityBase64Dto,
+    @Res() res: Response,
+  ) {
+    try {
+      const savedFiles =
+        await this.fileService.saveFilesBase64(createFileEntityDto);
+      this.createdResponse(res, messages.successFileUpload, savedFiles);
+    } catch (error) {
+      this.badRequestResponse(
+        res,
+        error.message || messages.error,
+        error?.response,
+      );
     }
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Disk } from '@modules/file/disk/entities/disk.entity';
+import { messages } from 'src/messages/messages';
 
 @Injectable()
 export class DiskService {
@@ -11,21 +12,40 @@ export class DiskService {
   ) {}
 
   async diskCreate(filePath: string) {
-    const publicDisk = this.diskRepository.create({
-      name: 'public',
-      path: filePath + '\\public',
+    const disksToCreate = [];
+
+    const publicExists = await this.diskRepository.findOne({
+      where: { name: 'public' },
     });
+    if (!publicExists) {
+      disksToCreate.push(
+        this.diskRepository.create({
+          name: 'public',
+          path: `${filePath}\\public`,
+        }),
+      );
+    }
 
-    const privateDisk = this.diskRepository.create({
-      name: 'private',
-      path: filePath + '\\private',
+    const privateExists = await this.diskRepository.findOne({
+      where: { name: 'private' },
     });
+    if (!privateExists) {
+      disksToCreate.push(
+        this.diskRepository.create({
+          name: 'private',
+          path: `${filePath}\\private`,
+        }),
+      );
+    }
 
-    const disks = await Promise.all([
-      this.diskRepository.save(publicDisk),
-      this.diskRepository.save(privateDisk),
-    ]);
+    if (disksToCreate.length === 0) {
+      throw new Error(messages.diskPreexistent);
+    }
 
-    return disks;
+    const createdDisks = await Promise.all(
+      disksToCreate.map((disk) => this.diskRepository.save(disk)),
+    );
+
+    return createdDisks;
   }
 }

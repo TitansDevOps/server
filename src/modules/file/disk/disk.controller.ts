@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Res, UseGuards } from '@nestjs/common';
+import { Controller, Get, Res, UseGuards } from '@nestjs/common';
 import { BaseController } from '@modules/admin/admin.controller';
 
 import { AuthGuard } from '@modules/auth/guard/auth.guard';
@@ -16,15 +16,13 @@ export class DiskController extends BaseController {
 
   @UseGuards(AuthGuard)
   @Get('create')
-  async createDisk(@Param('filename') @Res() res: Response) {
+  async createDisk(@Res() res: Response) {
     try {
       const filePath = join(process.cwd(), 'uploads');
       const response = await this.diskService.diskCreate(filePath);
-      console.log(response);
       this.createdResponse(res, messages.successCreateDisk, response);
     } catch (error) {
-      this.badRequestResponse(res, messages.error, error);
-      console.log(error);
+      this.badRequestResponse(res, error?.message, error?.error);
     }
   }
 }

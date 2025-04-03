@@ -54,6 +54,9 @@ const message = {
     errorFileNotFound: 'File not found',
     errorGettingFilePath: 'Error getting file path',
     successCreateDisk: 'Disk created successfully',
+
+    diskPreexistent: 'Disks already exist in this server',
+    errorInvalidFileFormat: 'Invalid file format',
   },
 
   outputSpanishMessages: {
@@ -108,6 +111,9 @@ const message = {
     errorFileNotFound: 'Archivo no encontrado',
     errorGettingFilePath: 'Error al obtener la ruta del archivo',
     successCreateDisk: 'Disco creado correctamente',
+
+    diskPreexistent: 'Los discos ya existen en este servidor',
+    errorInvalidFileFormat: 'Formato de archivo no válido',
   },
 };
 
