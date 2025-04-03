@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/TitansDevOps/server/compare/v1.1.2...v1.2.0) (2025-04-03)
+
+
+### Features
+
+* module files ([#11](https://github.com/TitansDevOps/server/issues/11)) ([fe37e11](https://github.com/TitansDevOps/server/commit/fe37e11a44d3465526762fd8cfc7a4d5ccf1d040))
+
+
+### Bug Fixes
+
+* deploy ([0cf871d](https://github.com/TitansDevOps/server/commit/0cf871d06596b7408ba980203419f670887ea7fc))
+* run prod ([dde86ca](https://github.com/TitansDevOps/server/commit/dde86cad0bb0ab96056ff0e21a8e6e5fc67455c6))
+
 ## [1.1.2](https://github.com/TitansDevOps/server/compare/v1.1.1...v1.1.2) (2025-03-31)
 
 
