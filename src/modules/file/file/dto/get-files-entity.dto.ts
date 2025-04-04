@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsNumber, IsArray } from 'class-validator';
+import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
 import { Transform } from 'class-transformer';
 
 export class GetFilesByEntityDto {
@@ -8,12 +8,9 @@ export class GetFilesByEntityDto {
 
   @IsArray()
   @IsNotEmpty()
-  idEntities: Array<IdEntity>;
-}
-
-class IdEntity {
-  @IsNumber()
-  @IsNotEmpty()
-  @Transform(({ value }) => Number(value))
-  idEntity: number;
+  @IsNumber({}, { each: true })
+  @Transform(({ value }) =>
+    Array.isArray(value) ? value.map((v) => Number(v)) : [],
+  )
+  idEntities: number[];
 }

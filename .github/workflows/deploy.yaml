@@ -77,3 +77,4 @@ jobs:
         run: |
           sleep 10
           curl -f http://localhost:4001 || exit 1
+          
