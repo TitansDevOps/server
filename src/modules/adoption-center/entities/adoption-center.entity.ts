@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Pets } from '@modules/pets/entities/pets.entity';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 @Entity({ name: 'adoption_center' })
 export class AdoptionCenter {
@@ -40,4 +41,7 @@ export class AdoptionCenter {
 
   @Column({ default: true, nullable: false })
   active: boolean;
+
+  @OneToMany(() => Pets, (pets) => pets.adoptionCenter)
+  pets: Pets[];
 }

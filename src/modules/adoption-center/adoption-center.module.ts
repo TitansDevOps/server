@@ -9,5 +9,6 @@ import { AdoptionCenterService } from '@modules/adoption-center/adoption-center.
   imports: [TypeOrmModule.forFeature([AdoptionCenter]), FileModule],
   controllers: [AdoptionCenterController],
   providers: [AdoptionCenterService],
+  exports: [AdoptionCenterService],
 })
-export class AdoptioncenterModule {}
+export class AdoptionCenterModule {}

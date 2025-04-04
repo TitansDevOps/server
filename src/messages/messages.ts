@@ -73,6 +73,11 @@ const message = {
     adoptionCenterCreated: 'Adoption center created successfully',
     adoptionCenterUpdated: 'Adoption center updated successfully',
     adoptionCenterDeleted: 'Adoption center deleted successfully',
+
+    petNotFound: 'Pet not found',
+    petCreated: 'Pet created successfully',
+    petUpdated: 'Pet updated successfully',
+    petDeleted: 'Pet deleted successfully',
   },
 
   outputSpanishMessages: {
@@ -145,6 +150,11 @@ const message = {
     adoptionCenterCreated: 'Centro de adopción creado correctamente',
     adoptionCenterUpdated: 'Centro de adopción actualizado correctamente',
     adoptionCenterDeleted: 'Centro de adopción eliminado correctamente',
+
+    petNotFound: 'Mascota no encontrada',
+    petCreated: 'Mascota creada correctamente',
+    petUpdated: 'Mascota actualizada correctamente',
+    petDeleted: 'Mascota eliminada correctamente',
   },
 };
 

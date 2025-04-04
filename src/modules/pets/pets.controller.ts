@@ -6,27 +6,25 @@ import {
   Body,
   Param,
   Res,
-  HttpException,
-  HttpStatus,
   UseGuards,
   Delete,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { AdoptionCenterService } from '@modules/adoption-center/adoption-center.service';
-import { AdoptionCenterDto } from '@modules/adoption-center/dto/adoption-center.dto';
-
 import { messages } from 'src/messages/messages';
 
-import { Role } from '@modules/common/enums/rol.enum';
-import { Roles } from '@modules/auth/decorators/roles.decorator';
+import { Role } from '../common/enums/rol.enum';
+import { Roles } from '../auth/decorators/roles.decorator';
 import { RolesGuard } from '../auth/guard/roles.guard';
 import { Public } from '@modules/auth/decorators/public.decorator';
 import { BaseController } from '@modules/admin/admin.controller';
 
-@Controller('adoption-centers')
+import { PetsDto } from '@modules/pets/dto/pets.dto';
+import { PetsService } from '@modules/pets/pets.service';
+
+@Controller('pets')
 @UseGuards(AuthGuard, RolesGuard)
-export class AdoptionCenterController extends BaseController {
-  constructor(private readonly adoptionCenterService: AdoptionCenterService) {
+export class PetsController extends BaseController {
+  constructor(private readonly petsService: PetsService) {
     super();
   }
 
@@ -34,10 +32,14 @@ export class AdoptionCenterController extends BaseController {
   @Get()
   async findAll(@Res() res: Response) {
     try {
-      const response = await this.adoptionCenterService.findAll();
+      const response = await this.petsService.findAll();
       return this.successResponse(res, messages.success, response);
     } catch (error) {
-      throw new HttpException(error.message, HttpStatus.NOT_FOUND);
+      return this.badRequestResponse(
+        res,
+        error?.message || messages.error,
+        error?.response,
+      );
     }
   }
 
@@ -45,7 +47,7 @@ export class AdoptionCenterController extends BaseController {
   @Get(':id')
   async findOne(@Param('id') id: number, @Res() res: Response) {
     try {
-      const response = await this.adoptionCenterService.findOne(+id);
+      const response = await this.petsService.findOne(+id);
       return this.successResponse(res, messages.success, response.toJSON());
     } catch (error) {
       this.badRequestResponse(
@@ -58,18 +60,10 @@ export class AdoptionCenterController extends BaseController {
 
   @Roles(Role.ADMIN, Role.OPERATOR)
   @Post('create')
-  async create(
-    @Body() adoptionCenterDto: AdoptionCenterDto,
-    @Res() res: Response,
-  ) {
+  async create(@Body() petsDto: PetsDto, @Res() res: Response) {
     try {
-      const response =
-        await this.adoptionCenterService.create(adoptionCenterDto);
-      return this.createdResponse(
-        res,
-        messages.adoptionCenterCreated,
-        response,
-      );
+      const response = await this.petsService.create(petsDto);
+      return this.successResponse(res, messages.petCreated, response.toJSON());
     } catch (error) {
       this.badRequestResponse(res, messages.error, error.message);
     }
@@ -77,18 +71,10 @@ export class AdoptionCenterController extends BaseController {
 
   @Roles(Role.ADMIN, Role.OPERATOR)
   @Post('update')
-  async update(
-    @Body() adoptionCenterDto: AdoptionCenterDto,
-    @Res() res: Response,
-  ) {
+  async update(@Body() petsDto: PetsDto, @Res() res: Response) {
     try {
-      const response =
-        await this.adoptionCenterService.update(adoptionCenterDto);
-      return this.successResponse(
-        res,
-        messages.adoptionCenterUpdated,
-        response,
-      );
+      const response = await this.petsService.update(petsDto);
+      return this.createdResponse(res, messages.petUpdated, response.toJSON());
     } catch (error) {
       return this.badRequestResponse(
         res,
@@ -102,12 +88,8 @@ export class AdoptionCenterController extends BaseController {
   @Delete(':id')
   async remove(@Param('id') id: number, @Res() res: Response) {
     try {
-      const response = await this.adoptionCenterService.remove(+id);
-      return this.successResponse(
-        res,
-        messages.adoptionCenterDeleted,
-        response,
-      );
+      const response = await this.petsService.remove(+id);
+      return this.successResponse(res, messages.petDeleted, response);
     } catch (error) {
       return this.badRequestResponse(
         res,

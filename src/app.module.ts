@@ -3,18 +3,19 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { config } from 'dotenv';
 import { POSTGRES, LOCALHOST_ENV } from '@modules/admin/constants';
 
-import { AuthModule } from './modules/auth/auth.module';
-import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from '@modules/auth/auth.module';
+import { UsersModule } from '@modules/users/users.module';
 import { JwtModule } from '@nestjs/jwt';
-import { jwtConstants } from './modules/auth/constants/jwt.constant';
+import { jwtConstants } from '@modules/auth/constants/jwt.constant';
 import { APP_GUARD } from '@nestjs/core';
-import { RolesGuard } from './modules/auth/guard/roles.guard';
-import { AuthGuard } from './modules/auth/guard/auth.guard';
-import { MailModule } from './modules/mail/mail.module';
+import { RolesGuard } from '@modules/auth/guard/roles.guard';
+import { AuthGuard } from '@modules/auth/guard/auth.guard';
+import { MailModule } from '@modules/mail/mail.module';
 import { FileModule } from '@modules/file/file.module';
 
 import { AppController } from '@modules/admin/app.controller';
-import { AdoptioncenterModule } from '@modules/adoption-center/adoption-center.module';
+import { AdoptionCenterModule } from '@modules/adoption-center/adoption-center.module';
+import { petsModule } from '@modules/pets/pets.module';
 
 config();
 
@@ -55,7 +56,8 @@ config();
     UsersModule,
     MailModule,
     FileModule,
-    AdoptioncenterModule,
+    AdoptionCenterModule,
+    petsModule,
   ],
   controllers: [AppController],
   providers: [
