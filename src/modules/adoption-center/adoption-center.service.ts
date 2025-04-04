@@ -17,7 +17,7 @@ import { FileService } from '@modules/file/file/file.service';
 @Injectable()
 @UseInterceptors(ClassSerializerInterceptor)
 export class AdoptionCenterService {
-  private ADOPTION_CENTER = 'ADOPTION_CENTER';
+  private readonly ADOPTION_CENTER = 'ADOPTION_CENTER';
 
   constructor(
     @InjectRepository(AdoptionCenter)

@@ -35,11 +35,7 @@ export class PetsController extends BaseController {
       const response = await this.petsService.findAll();
       return this.successResponse(res, messages.success, response);
     } catch (error) {
-      return this.badRequestResponse(
-        res,
-        error?.message || messages.error,
-        error?.response,
-      );
+      return this.badRequestResponse(res, error?.message, error?.response);
     }
   }
 
@@ -50,11 +46,7 @@ export class PetsController extends BaseController {
       const response = await this.petsService.findOne(+id);
       return this.successResponse(res, messages.success, response.toJSON());
     } catch (error) {
-      this.badRequestResponse(
-        res,
-        error?.message || messages.error,
-        error?.response,
-      );
+      this.badRequestResponse(res, error?.message, error?.response);
     }
   }
 
@@ -76,11 +68,7 @@ export class PetsController extends BaseController {
       const response = await this.petsService.update(petsDto);
       return this.createdResponse(res, messages.petUpdated, response.toJSON());
     } catch (error) {
-      return this.badRequestResponse(
-        res,
-        error?.message || messages.error,
-        error?.response,
-      );
+      return this.badRequestResponse(res, error?.message, error?.response);
     }
   }
 
@@ -91,11 +79,7 @@ export class PetsController extends BaseController {
       const response = await this.petsService.remove(+id);
       return this.successResponse(res, messages.petDeleted, response);
     } catch (error) {
-      return this.badRequestResponse(
-        res,
-        error?.message || messages.error,
-        error?.response,
-      );
+      return this.badRequestResponse(res, error?.message, error?.response);
     }
   }
 }

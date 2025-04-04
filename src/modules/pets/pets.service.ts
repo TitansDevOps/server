@@ -12,7 +12,7 @@ import { AdoptionCenterService } from '@modules/adoption-center/adoption-center.
 
 @Injectable()
 export class PetsService {
-  private PET = 'PET';
+  private readonly PET = 'PET';
 
   constructor(
     @InjectRepository(Pets)

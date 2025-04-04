@@ -90,11 +90,7 @@ export class AdoptionCenterController extends BaseController {
         response,
       );
     } catch (error) {
-      return this.badRequestResponse(
-        res,
-        error?.message || messages.error,
-        error?.response,
-      );
+      return this.badRequestResponse(res, error?.message, error?.response);
     }
   }
 
@@ -109,11 +105,7 @@ export class AdoptionCenterController extends BaseController {
         response,
       );
     } catch (error) {
-      return this.badRequestResponse(
-        res,
-        error?.message || messages.error,
-        error?.response,
-      );
+      return this.badRequestResponse(res, error?.message, error?.response);
     }
   }
 }
