@@ -3,19 +3,23 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { BaseService } from '@modules/common/base/base.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { messages } from 'src/messages/messages';
+import { UserDto } from './dto/user.dto';
 
 @Injectable()
-export class UsersService {
+export class UserService extends BaseService<User, UserDto> {
   constructor(
     @InjectRepository(User)
     private readonly userRepository: Repository<User>,
-  ) {}
+  ) {
+    super(userRepository, UserDto);
+  }
 
   create(createUserDto: CreateUserDto) {
     return this.userRepository.save(createUserDto);
@@ -32,76 +36,52 @@ export class UsersService {
     });
   }
 
-  async findAll() {
-    const users = await this.userRepository.find();
-    return users.map((user) => {
-      const { id, fullName, email, role, createdAt, address, phone } = user;
-      return { id, fullName, email, role, createdAt, address, phone };
-    });
-  }
+  // async update(updateUserDto: UpdateUserDto) {
+  //   const id: number = updateUserDto.id;
+  //   const user = await this.userRepository.findOne({ where: { id } });
 
-  async findOne(id: number) {
-    const user = await this.userRepository.findOne({ where: { id } });
-    if (!user) {
-      throw new NotFoundException(messages.userNotFound);
-    }
-    return {
-      id,
-      fullName: user.fullName,
-      email: user.email,
-      role: user.role,
-      createdAt: user.createdAt,
-      address: user.address,
-      phone: user.phone,
-    };
-  }
+  //   if (!user) {
+  //     throw new NotFoundException(messages.userNotFound);
+  //   }
 
-  async update(updateUserDto: UpdateUserDto) {
-    const id: number = updateUserDto.id;
-    const user = await this.userRepository.findOne({ where: { id } });
+  //   if (user.email != updateUserDto.email) {
+  //     const emailUser = await this.findOneByEmail(updateUserDto.email);
+  //     if (emailUser) {
+  //       throw new BadRequestException(messages.userAlreadyExist);
+  //     } else {
+  //       user.email = updateUserDto.email;
+  //     }
+  //   }
 
-    if (!user) {
-      throw new NotFoundException(messages.userNotFound);
-    }
+  //   if (updateUserDto.address) {
+  //     user.address = updateUserDto.address;
+  //   }
 
-    if (user.email != updateUserDto.email) {
-      const emailUser = await this.findOneByEmail(updateUserDto.email);
-      if (emailUser) {
-        throw new BadRequestException(messages.userAlreadyExist);
-      } else {
-        user.email = updateUserDto.email;
-      }
-    }
+  //   if (updateUserDto.isActive || !updateUserDto.isActive) {
+  //     user.isActive = updateUserDto.isActive;
+  //   }
 
-    if (updateUserDto.address) {
-      user.address = updateUserDto.address;
-    }
+  //   if (updateUserDto.phone) {
+  //     user.phone = updateUserDto.phone;
+  //   }
 
-    if (updateUserDto.isActive || !updateUserDto.isActive) {
-      user.isActive = updateUserDto.isActive;
-    }
+  //   if (updateUserDto.fullName) {
+  //     user.fullName = updateUserDto.fullName;
+  //   }
 
-    if (updateUserDto.phone) {
-      user.phone = updateUserDto.phone;
-    }
+  //   if (updateUserDto.resetPassword === true && updateUserDto.password) {
+  //     user.password = updateUserDto.password;
+  //   }
 
-    if (updateUserDto.fullName) {
-      user.fullName = updateUserDto.fullName;
-    }
-
-    if (updateUserDto.resetPassword === true && updateUserDto.password) {
-      user.password = updateUserDto.password;
-    }
-
-    const newUser = await this.userRepository.save(user);
-    return {
-      id: newUser.id,
-      fullName: newUser.fullName,
-      email: newUser.email,
-      role: newUser.role,
-      createdAt: newUser.createdAt,
-      address: newUser.address,
-      phone: newUser.phone,
-    };
-  }
+  //   const newUser = await this.userRepository.save(user);
+  //   return {
+  //     id: newUser.id,
+  //     fullName: newUser.fullName,
+  //     email: newUser.email,
+  //     role: newUser.role,
+  //     createdAt: newUser.createdAt,
+  //     address: newUser.address,
+  //     phone: newUser.phone,
+  //   };
+  // }
 }

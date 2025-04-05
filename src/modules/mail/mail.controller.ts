@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Res, Get } from '@nestjs/common';
 import { Response } from 'express';
-import { BaseController } from '@modules/admin/admin.controller';
+import { BaseController } from '@modules/common/base/admin.controller';
 
 import { MailService } from '@modules/mail/mail.service';
 import { SendMailDto } from '@modules/mail/dto/send-mail.dto';

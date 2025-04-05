@@ -3,7 +3,7 @@ import { Response, Request } from 'express';
 import { join } from 'path';
 import { existsSync } from 'fs';
 
-import { BaseController } from '@modules/admin/admin.controller';
+import { BaseController } from '@modules/common/base/admin.controller';
 import { AuthGuard } from '@modules/auth/guard/auth.guard';
 import { messages } from 'src/messages/messages';
 

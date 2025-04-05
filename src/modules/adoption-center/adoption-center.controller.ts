@@ -21,7 +21,7 @@ import { Role } from '@modules/common/enums/rol.enum';
 import { Roles } from '@modules/auth/decorators/roles.decorator';
 import { RolesGuard } from '../auth/guard/roles.guard';
 import { Public } from '@modules/auth/decorators/public.decorator';
-import { BaseController } from '@modules/admin/admin.controller';
+import { BaseController } from '@modules/common/base/admin.controller';
 
 @Controller('adoption-centers')
 @UseGuards(AuthGuard, RolesGuard)

@@ -7,7 +7,7 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { BaseController } from '@modules/admin/admin.controller';
+import { BaseController } from '@modules/common/base/admin.controller';
 
 import { ActiveUser } from '@modules/common/decorators/active-user.decorator';
 import { UserActiveInterface } from '@modules/common/interfaces/user-active.interface';

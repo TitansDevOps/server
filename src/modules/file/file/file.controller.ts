@@ -17,7 +17,7 @@ import { GetFilesByEntityDto } from '@modules/file/file/dto/get-files-entity.dto
 import { messages } from 'src/messages/messages';
 import { AuthGuard } from '@modules/auth/guard/auth.guard';
 import { RolesGuard } from '@modules/auth/guard/roles.guard';
-import { BaseController } from '@modules/admin/admin.controller';
+import { BaseController } from '@modules/common/base/admin.controller';
 import { CreateFileEntityBase64Dto } from './dto/create-file-base64.dto';
 
 @Controller('file')

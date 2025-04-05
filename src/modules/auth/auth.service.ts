@@ -8,7 +8,7 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import * as bcryptjs from 'bcryptjs';
 
-import { UsersService } from '@modules/users/users.service';
+import { UserService } from '@modules/users/users.service';
 import { MailService } from '@modules/mail/mail.service';
 import { RegisterDto } from '@modules/auth/dto/register.dto';
 import { LoginDto } from '@modules/auth/dto/login.dto';
@@ -28,7 +28,7 @@ export class AuthService {
   private readonly URL_CLIENT = process.env.URL_CLIENT;
 
   constructor(
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
     private readonly jwtService: JwtService,
     private readonly mailService: MailService,
   ) {}
@@ -157,7 +157,7 @@ export class AuthService {
 
       const dto = new UpdateUserDto();
       const dtoUser = await dto.updateDTO(user, true);
-      await this.usersService.update(dtoUser);
+      await this.usersService.update(dto.id, dtoUser);
 
       return { message: messages.passwordResetSuccess };
     } catch (error) {

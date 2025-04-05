@@ -16,7 +16,7 @@ import { Role } from '../common/enums/rol.enum';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { RolesGuard } from '../auth/guard/roles.guard';
 import { Public } from '@modules/auth/decorators/public.decorator';
-import { BaseController } from '@modules/admin/admin.controller';
+import { BaseController } from '@modules/common/base/admin.controller';
 
 import { PetsDto } from '@modules/pets/dto/pets.dto';
 import { PetsService } from '@modules/pets/pets.service';

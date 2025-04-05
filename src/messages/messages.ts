@@ -14,6 +14,9 @@ const message = {
     passwordIsWrong: 'password is wrong',
     userNotFound: 'User not found',
     errorUpdateUser: 'Error editing user',
+    user: 'User',
+    userUpdated: 'User updated successfully',
+    userDeleted: 'User deleted successfully',
 
     fullNameString: 'Invalid full name data type',
     fullNameRequired: 'Full name is required',
@@ -78,6 +81,12 @@ const message = {
     petCreated: 'Pet created successfully',
     petUpdated: 'Pet updated successfully',
     petDeleted: 'Pet deleted successfully',
+
+    entityNotFound: 'Entity not found',
+    entityCreated: 'Entity created successfully',
+    entityUpdated: 'Entity updated successfully',
+    entityDeleted: 'Entity deleted successfully',
+    entityAlreadyExists: 'Entity already exists',
   },
 
   outputSpanishMessages: {
@@ -91,6 +100,9 @@ const message = {
     passwordIsWrong: 'Contraseña incorrecta',
     userNotFound: 'El usuario no existe',
     errorUpdateUser: 'Ocurrió un error editando el usuario',
+    user: 'Usuario',
+    userUpdated: 'Usuario actualizado exitosamente',
+    userDeleted: 'Usuario eliminado exitosamente',
 
     fullNameString: 'Tipo de dato de nombre completo inválido',
     fullNameRequired: 'El nombre completo es obligatorio',
@@ -155,6 +167,12 @@ const message = {
     petCreated: 'Mascota creada correctamente',
     petUpdated: 'Mascota actualizada correctamente',
     petDeleted: 'Mascota eliminada correctamente',
+
+    entityNotFound: 'Entidad no encontrada',
+    entityCreated: 'Entidad creada correctamente',
+    entityUpdated: 'Entidad actualizada correctamente',
+    entityDeleted: 'Entidad eliminada correctamente',
+    entityAlreadyExists: 'La entidad ya existe',
   },
 };
 
