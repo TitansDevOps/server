@@ -14,6 +14,9 @@ const message = {
     passwordIsWrong: 'password is wrong',
     userNotFound: 'User not found',
     errorUpdateUser: 'Error editing user',
+    user: 'User',
+    userUpdated: 'User updated successfully',
+    userDeleted: 'User deleted successfully',
 
     fullNameString: 'Invalid full name data type',
     fullNameRequired: 'Full name is required',
@@ -57,6 +60,46 @@ const message = {
 
     diskPreexistent: 'Disks already exist in this server',
     errorInvalidFileFormat: 'Invalid file format',
+
+    propertyIDRequired: 'ID is required',
+    propertyNameRequired: 'Name is required',
+
+    propertyIDNumber: 'ID must be a number',
+    propertyNameString: 'Name must be a string',
+
+    attributeValueNotFound: 'Attribute value not found to update',
+    attributeNotFound: 'Attribute not found to update',
+
+    propertyDescriptionRequired: 'Description is required',
+
+    adoptionCenterNotFound: 'Adoption center not found',
+    adoptionCenterCreated: 'Adoption center created successfully',
+    adoptionCenterUpdated: 'Adoption center updated successfully',
+    adoptionCenterDeleted: 'Adoption center deleted successfully',
+
+    petNotFound: 'Pet not found',
+    petCreated: 'Pet created successfully',
+    petUpdated: 'Pet updated successfully',
+    petDeleted: 'Pet deleted successfully',
+
+    entityNotFound: 'Entity not found',
+    entityCreated: 'Entity created successfully',
+    entityUpdated: 'Entity updated successfully',
+    entityDeleted: 'Entity deleted successfully',
+    entityAlreadyExists: 'Entity already exists',
+
+    petAlreadyExists: 'Pet already exists',
+    petTypeNotFound: 'Pet type not found',
+    petTypeAlreadyExists: 'Pet type already exists',
+    petTypeCreated: 'Pet type created successfully',
+    petTypeUpdated: 'Pet type updated successfully',
+    petTypeDeleted: 'Pet type deleted successfully',
+
+    attributePetNotFound: 'Attribute not found',
+    attributeCreated: 'Attribute created successfully',
+    attributeUpdated: 'Attribute updated successfully',
+    attributeDeleted: 'Attribute deleted successfully',
+    attributeAlreadyExists: 'Attribute already exists',
   },
 
   outputSpanishMessages: {
@@ -70,6 +113,9 @@ const message = {
     passwordIsWrong: 'Contraseña incorrecta',
     userNotFound: 'El usuario no existe',
     errorUpdateUser: 'Ocurrió un error editando el usuario',
+    user: 'Usuario',
+    userUpdated: 'Usuario actualizado exitosamente',
+    userDeleted: 'Usuario eliminado exitosamente',
 
     fullNameString: 'Tipo de dato de nombre completo inválido',
     fullNameRequired: 'El nombre completo es obligatorio',
@@ -114,6 +160,46 @@ const message = {
 
     diskPreexistent: 'Los discos ya existen en este servidor',
     errorInvalidFileFormat: 'Formato de archivo no válido',
+
+    propertyIDRequired: 'ID es obligatorio',
+    propertyNameRequired: 'El nombre es obligatorio',
+    propertyIDNumber: 'ID debe ser un número',
+    propertyNameString: 'El nombre debe ser una cadena de texto',
+
+    attributeValueNotFound: 'Valor de atributo no encontrado para actualizar',
+    attributeNotFound: 'Atributo no encontrado para actualizar',
+
+    propertyDescriptionRequired: 'La descripción es obligatoria',
+
+    adoptionCenterNotFound: 'Centro de adopción no encontrado',
+    adoptionCenterCreated: 'Centro de adopción creado correctamente',
+    adoptionCenterUpdated: 'Centro de adopción actualizado correctamente',
+    adoptionCenterDeleted: 'Centro de adopción eliminado correctamente',
+
+    petNotFound: 'Mascota no encontrada',
+    petCreated: 'Mascota creada correctamente',
+    petUpdated: 'Mascota actualizada correctamente',
+    petDeleted: 'Mascota eliminada correctamente',
+
+    entityNotFound: 'Entidad no encontrada',
+    entityCreated: 'Entidad creada correctamente',
+    entityUpdated: 'Entidad actualizada correctamente',
+    entityDeleted: 'Entidad eliminada correctamente',
+    entityAlreadyExists: 'La entidad ya existe',
+
+    petAlreadyExists: 'La mascota ya existe',
+    petTypeNotFound: 'Tipo de mascota no encontrado',
+    petTypeAlreadyExists: 'Tipo de mascota ya existe',
+    petTypeCreated: 'Tipo de mascota creado correctamente',
+    petTypeUpdated: 'Tipo de mascota actualizado correctamente',
+    petTypeDeleted: 'Tipo de mascota eliminado correctamente',
+
+    attributePetNotFound: 'Atributo no encontrado',
+    attributeCreated: 'Atributo creado correctamente',
+    attributeUpdated: 'Atributo actualizado correctamente',
+    attributeDeleted: 'Atributo eliminado correctamente',
+    attributeAlreadyExists: 'Atributo ya existe',
+    allowedValuesNotArray: 'Los valores permitidos deben ser un array',
   },
 };
 

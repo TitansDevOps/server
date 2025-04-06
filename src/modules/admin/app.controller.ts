@@ -1,6 +1,6 @@
 import { Public } from '@modules/auth/decorators/public.decorator';
 import { Controller, Get, Res } from '@nestjs/common';
-import { BaseController } from './admin.controller';
+import { BaseController } from '../common/base/admin.controller';
 import { Response } from 'express';
 
 @Controller()

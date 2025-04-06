@@ -2,4 +2,4 @@
 
 export const PrivateFileEntity = ['REPORT'];
 
-export const PublicFileEntity = ['PET'];
+export const PublicFileEntity = ['PET', 'ADOPTION_CENTER'];

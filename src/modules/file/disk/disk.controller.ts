@@ -1,5 +1,5 @@
 import { Controller, Get, Res, UseGuards } from '@nestjs/common';
-import { BaseController } from '@modules/admin/admin.controller';
+import { BaseController } from '@modules/common/base/admin.controller';
 
 import { AuthGuard } from '@modules/auth/guard/auth.guard';
 import { Response } from 'express';

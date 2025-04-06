@@ -8,14 +8,14 @@ import {
 import { JwtService } from '@nestjs/jwt';
 import * as bcryptjs from 'bcryptjs';
 
-import { UsersService } from '@modules/users/users.service';
+import { UserService } from '@modules/users/users.service';
 import { MailService } from '@modules/mail/mail.service';
 import { RegisterDto } from '@modules/auth/dto/register.dto';
 import { LoginDto } from '@modules/auth/dto/login.dto';
 import { SendMailDto } from '@modules/mail/dto/send-mail.dto';
 import { ResetPasswordDto } from '@modules/auth/dto/reset-pass.dto';
 import { UpdateUserDto } from '@modules/users/dto/update-user.dto';
-
+import { UserDto } from '@modules/users/dto/user.dto';
 import { messages } from 'src/messages/messages';
 import { Role } from '@modules/common/enums/rol.enum';
 import { resetPasswordTemplate } from '@modules/mail/templates/resetPasswordTemplate';
@@ -28,11 +28,10 @@ export class AuthService {
   private readonly URL_CLIENT = process.env.URL_CLIENT;
 
   constructor(
-    private readonly usersService: UsersService,
+    private readonly usersService: UserService,
     private readonly jwtService: JwtService,
     private readonly mailService: MailService,
   ) {}
-
   async register({ fullName, email, password, address, phone }: RegisterDto) {
     const user = await this.usersService.findOneByEmail(email);
 
@@ -100,16 +99,7 @@ export class AuthService {
       throw new NotFoundException(messages.userNotFound);
     }
 
-    return {
-      id: user.id,
-      email: user.email,
-      fullName: user.fullName,
-      address: user.address,
-      phone: user.phone,
-      role: user.role,
-      createdAt: user.createdAt,
-      isActive: user.isActive,
-    };
+    return new UserDto(user).toJson();
   }
 
   async sendResetPasswordEmail(email: string) {
@@ -135,6 +125,7 @@ export class AuthService {
       bodyMail: htmlTemplate,
     };
 
+    console.log(resetToken);
     await this.mailService.sendMail(emailDTO);
 
     return { message: messages.resetEmailSent };
@@ -157,7 +148,7 @@ export class AuthService {
 
       const dto = new UpdateUserDto();
       const dtoUser = await dto.updateDTO(user, true);
-      await this.usersService.update(dtoUser);
+      await this.usersService.update(dto.id, dtoUser);
 
       return { message: messages.passwordResetSuccess };
     } catch (error) {
