@@ -4,7 +4,7 @@
 		"name": "Pets",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "29370226",
-		"_collection_link": "https://jdm222.postman.co/workspace/JDM~d81a1810-d371-4198-a7be-fe8f7a352102/collection/29370226-14063a35-5703-43d3-92a9-7718a5d347fc?action=share&source=collection_link&creator=29370226"
+		"_collection_link": "https://jdm222.postman.co/workspace/d81a1810-d371-4198-a7be-fe8f7a352102/collection/29370226-14063a35-5703-43d3-92a9-7718a5d347fc?action=share&source=collection_link&creator=29370226"
 	},
 	"item": [
 		{
@@ -260,7 +260,7 @@
 							"response": []
 						},
 						{
-							"name": "getalluserss",
+							"name": "findAll",
 							"event": [
 								{
 									"listen": "test",
@@ -292,12 +292,19 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}users/getallusers",
+									"raw": "{{URL}}users?page=1&limit=10",
 									"host": [
 										"{{URL}}users"
 									],
-									"path": [
-										"getallusers"
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "limit",
+											"value": "10"
+										}
 									]
 								}
 							},
@@ -776,12 +783,28 @@
 						{
 							"name": "findAll",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}adoption-centers",
+									"raw": "{{URL}}adoption-centers?page=3",
 									"host": [
 										"{{URL}}adoption-centers"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "3"
+										}
 									]
 								}
 							},
@@ -790,15 +813,25 @@
 						{
 							"name": "findOne",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}adoption-centers/1",
+									"raw": "{{URL}}adoption-centers/23",
 									"host": [
 										"{{URL}}adoption-centers"
 									],
 									"path": [
-										"1"
+										"23"
 									]
 								}
 							},
@@ -821,7 +854,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Adoption Center 1\",\r\n    \"description\": \"desc\",\r\n    \"address\": \"Laureles - Medellín\",\r\n    \"phone\": \"312879122\",\r\n    \"email\": \"maicol.alvarez@mantum.com.co\",\r\n    \"website\": \"http//:github.com/maicolAA\"\r\n}",
+									"raw": "{\r\n    \"name\": \"Adoption Center 1\",\r\n    \"description\": \"desc\",\r\n    \"address\": \"Laureles - Medellín\",\r\n    \"phone\": \"312879122\",\r\n    \"email\": \"maicol.alvarez@mantum.com.co\",\r\n    \"website\": \"http//:github.com/maicolAA\",\r\n    \"facebook\": \"maicolaa\",\r\n    \"instagram\": \"maicolaa\",\r\n    \"twitter\": \"maicol\",\r\n    \"youtube\": \"maicolaa\",\r\n    \"whatsapp\": \"232323\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -829,12 +862,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}adoption-centers/create/",
+									"raw": "{{URL}}adoption-centers/",
 									"host": [
 										"{{URL}}adoption-centers"
 									],
 									"path": [
-										"create",
 										""
 									]
 								}
@@ -854,11 +886,11 @@
 										}
 									]
 								},
-								"method": "POST",
+								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Adoption Center 1\",\r\n    \"description\": \"desc\",\r\n    \"address\": \"Laureles - Medellín\",\r\n    \"phone\": \"312879122\",\r\n    \"email\": \"maicol.alvarez@mantum.com.co\",\r\n    \"website\": \"http//:github.com/maicolAA\"\r\n}",
+									"raw": "{\r\n    \"name\": 1,\r\n    \"description\": \"desc\",\r\n    \"address\": \"Laureles - Medellín\",\r\n    \"phone\": \"312879122\",\r\n    \"email\": \"maicol.alvarez@mantum.com.co\",\r\n    \"website\": \"http//:github.com/maicolAA\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -866,13 +898,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}adoption-centers/update/",
+									"raw": "{{URL}}adoption-centers/5",
 									"host": [
 										"{{URL}}adoption-centers"
 									],
 									"path": [
-										"update",
-										""
+										"5"
 									]
 								}
 							},
@@ -894,12 +925,12 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}adoption-centers/1",
+									"raw": "{{URL}}adoption-centers/5",
 									"host": [
 										"{{URL}}adoption-centers"
 									],
 									"path": [
-										"1"
+										"5"
 									]
 								}
 							},
@@ -913,6 +944,16 @@
 						{
 							"name": "findAll",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -927,15 +968,25 @@
 						{
 							"name": "findOne",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{TOKEN}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{URL}}pets/7",
+									"raw": "{{URL}}pets/2",
 									"host": [
 										"{{URL}}pets"
 									],
 									"path": [
-										"7"
+										"2"
 									]
 								}
 							},
@@ -958,7 +1009,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"name\": \"Pet 1\",\r\n    \"description\": \"desc\",\r\n    \"adoptionCenter\": {\r\n        \"id\": 2\r\n    }\r\n}",
+									"raw": "{\r\n  \"name\": \"Max\",\r\n  \"description\": \"Pastor Alemán juguetón\",\r\n  \"adoptionCenterId\": 20,\r\n  \"petType\": {\r\n    \"id\": 4 \r\n  },\r\n  \"attributeValues\": [\r\n    {\r\n      \"attribute\": {\r\n        \"id\": 2  \r\n      },\r\n      \"value\": \"rojo\" \r\n    },\r\n    {\r\n        \"attribute\": {\r\n            \"id\": 4\r\n        },\r\n        \"value\": \"rojo\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -966,12 +1017,11 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}pets/create/",
+									"raw": "{{URL}}pets/",
 									"host": [
 										"{{URL}}pets"
 									],
 									"path": [
-										"create",
 										""
 									]
 								}
@@ -991,11 +1041,11 @@
 										}
 									]
 								},
-								"method": "POST",
+								"method": "PUT",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"id\": 7,\r\n    \"name\": \"Pet 28\",\r\n    \"description\": \"desc\",\r\n    \"adoptionCenter\": {\r\n        \"id\": 3\r\n    }\r\n}",
+									"raw": "{\r\n  \"name\": \"Max\",\r\n  \"description\": \"Pastor Alemán juguetón\",\r\n  \"adoptionCenterId\": 20,\r\n  \"petType\": {\r\n    \"id\": 4 \r\n  },\r\n  \"attributeValues\": [\r\n    {\r\n      \"attribute\": {\r\n        \"id\": 2  \r\n      },\r\n      \"value\": \"verde\" \r\n    },\r\n    {\r\n        \"attribute\": {\r\n            \"id\": 4\r\n        },\r\n        \"value\": \"morado\"\r\n    }\r\n  ]\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1003,13 +1053,12 @@
 									}
 								},
 								"url": {
-									"raw": "{{URL}}pets/update/",
+									"raw": "{{URL}}pets/9",
 									"host": [
 										"{{URL}}pets"
 									],
 									"path": [
-										"update",
-										""
+										"9"
 									]
 								}
 							},
@@ -1041,6 +1090,315 @@
 								}
 							},
 							"response": []
+						}
+					]
+				},
+				{
+					"name": "Pet-Types",
+					"item": [
+						{
+							"name": "types",
+							"item": [
+								{
+									"name": "create",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Perro\",\r\n    \"attributes\": [\r\n        {\r\n            \"id\": 2\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}pet-types",
+											"host": [
+												"{{URL}}pet-types"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "findOne",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}pet-types/4",
+											"host": [
+												"{{URL}}pet-types"
+											],
+											"path": [
+												"4"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "findAll",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}pet-types",
+											"host": [
+												"{{URL}}pet-types"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"Perro2\",\r\n    \"attributes\": [\r\n        {\r\n            \"id\": 2\r\n        }\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}pet-types/1",
+											"host": [
+												"{{URL}}pet-types"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "remove",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}pet-types/1",
+											"host": [
+												"{{URL}}pet-types"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "attributes",
+							"item": [
+								{
+									"name": "create",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"color0\",\r\n    \"allowedValues\": [\r\n        \"rojo\",\r\n        \"verde\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}attributes",
+											"host": [
+												"{{URL}}attributes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "update",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"color2\",\r\n    \"allowedValues\": [\r\n        \"rojo\",\r\n        \"morado\"\r\n    ]\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{URL}}attributes/1",
+											"host": [
+												"{{URL}}attributes"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "findAll",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}attributes",
+											"host": [
+												"{{URL}}attributes"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "findOne",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}attributes/1",
+											"host": [
+												"{{URL}}attributes"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "remove",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "{{TOKEN}}",
+													"type": "string"
+												}
+											]
+										},
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{URL}}attributes/1",
+											"host": [
+												"{{URL}}attributes"
+											],
+											"path": [
+												"1"
+											]
+										}
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
