@@ -1,11 +1,15 @@
-import { AdoptionCenter } from '@modules/adoption-center/entities/adoption-center.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
   ManyToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
+
+import { AdoptionCenter } from '@modules/adoption-center/entities/adoption-center.entity';
+import { PetType } from '@modules/petTypes/entities/pet-type.entity';
+import { PetAttributeValue } from '@modules/petTypes/entities/pet-attribute-value.entity';
 
 @Entity({ name: 'pets' })
 export class Pets {
@@ -31,4 +35,12 @@ export class Pets {
     foreignKeyConstraintName: 'pets_adoption_center_fk',
   })
   adoptionCenter: AdoptionCenter;
+
+  @ManyToOne(() => PetType, (petType) => petType.pets)
+  petType: PetType;
+
+  @OneToMany(() => PetAttributeValue, (attrValue) => attrValue.pet, {
+    cascade: true,
+  })
+  attributeValues: PetAttributeValue[];
 }

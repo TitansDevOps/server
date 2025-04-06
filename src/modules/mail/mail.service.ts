@@ -28,7 +28,7 @@ export class MailService {
     this.transporter = nodemailer.createTransport({
       host: this.hostMail,
       port: this.portMail,
-      // secure: this.securityMail,
+      secure: this.securityMail,
       auth: {
         user: this.userMail,
         pass: this.passwordMail,

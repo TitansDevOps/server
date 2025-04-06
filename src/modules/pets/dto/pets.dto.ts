@@ -1,53 +1,59 @@
-import { IsString, IsNotEmpty, IsOptional, IsNumber } from 'class-validator';
-import { Type } from 'class-transformer';
-import { messages } from 'src/messages/messages';
-import { AdoptionCenterPetDto } from '@modules/adoption-center/dto/adoption-center-pet.dto';
 import { Pets } from '@modules/pets/entities/pets.entity';
+import { BaseDto } from '@modules/common/dto/base.dto';
+import { AdoptionCenterDto } from '@modules/adoption-center/dto/adoption-center.dto';
+import { PetTypeDto } from '@modules/petTypes/dto/pet-type.dto';
+import { AdoptionCenter } from '@modules/adoption-center/entities/adoption-center.entity';
+import { PetType } from '@modules/petTypes/entities/pet-type.entity';
 
-export class PetsDto {
-  @IsOptional()
-  @IsNumber()
-  id: number | null;
+export class PetsDto extends BaseDto<Pets> {
+  files: any[] = [];
+  attributeValues: any[] = [];
 
-  @IsNotEmpty({ message: messages.propertyNameRequired })
-  @IsString()
-  name: string;
-
-  @IsNotEmpty({ message: messages.propertyDescriptionRequired })
-  @IsString()
-  description: string;
-
-  @IsOptional()
-  active: boolean;
-
-  @IsNotEmpty()
-  @Type(() => AdoptionCenterPetDto)
-  adoptionCenter: AdoptionCenterPetDto;
-
-  @IsOptional()
-  files: any[] | [];
-
-  public toJSON() {
-    return {
-      id: this.id,
-      name: this.name,
-      description: this.description,
-      active: this.active,
-      adoptionCenter: this.adoptionCenter.toJSON(),
-      files: Array.isArray(this.files)
-        ? this.files.filter((file) => file != null)
-        : [],
-    };
+  constructor(entity: Pets) {
+    super(entity);
   }
 
-  public fromModel(model: Pets): PetsDto {
-    this.id = model.id;
-    this.name = model.name;
-    this.description = model.description;
-    this.active = model.active;
-    this.adoptionCenter = new AdoptionCenterPetDto().fromModel(
-      model.adoptionCenter,
-    );
-    return this;
+  toJson(): Partial<Pets> {
+    const { id, name, description, active, adoptionCenter, petType } =
+      this.entity;
+
+    const basePet: Partial<Pets> = {
+      id,
+      name,
+      description,
+      active,
+      adoptionCenter: adoptionCenter
+        ? (new AdoptionCenterDto(adoptionCenter).toJson() as AdoptionCenter)
+        : undefined,
+      petType: petType
+        ? (new PetTypeDto(petType).toJson() as PetType)
+        : undefined,
+    };
+
+    return {
+      ...basePet,
+      attributeValues: this.entity.attributeValues?.map((av) => ({
+        id: av.id,
+        value: av.value,
+        attribute: {
+          id: av.attribute.id,
+          name: av.attribute.name,
+          allowedValues: av.attribute.allowedValues,
+        },
+      })),
+      files: this.files.filter((file) => file != null),
+    } as any;
+  }
+
+  toList(): Partial<Pets> {
+    const { id, name, description, active } = this.entity;
+
+    return {
+      id,
+      name,
+      description,
+      active,
+      files: this.files.filter((file) => file != null),
+    } as any;
   }
 }

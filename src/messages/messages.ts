@@ -87,6 +87,19 @@ const message = {
     entityUpdated: 'Entity updated successfully',
     entityDeleted: 'Entity deleted successfully',
     entityAlreadyExists: 'Entity already exists',
+
+    petAlreadyExists: 'Pet already exists',
+    petTypeNotFound: 'Pet type not found',
+    petTypeAlreadyExists: 'Pet type already exists',
+    petTypeCreated: 'Pet type created successfully',
+    petTypeUpdated: 'Pet type updated successfully',
+    petTypeDeleted: 'Pet type deleted successfully',
+
+    attributePetNotFound: 'Attribute not found',
+    attributeCreated: 'Attribute created successfully',
+    attributeUpdated: 'Attribute updated successfully',
+    attributeDeleted: 'Attribute deleted successfully',
+    attributeAlreadyExists: 'Attribute already exists',
   },
 
   outputSpanishMessages: {
@@ -173,6 +186,20 @@ const message = {
     entityUpdated: 'Entidad actualizada correctamente',
     entityDeleted: 'Entidad eliminada correctamente',
     entityAlreadyExists: 'La entidad ya existe',
+
+    petAlreadyExists: 'La mascota ya existe',
+    petTypeNotFound: 'Tipo de mascota no encontrado',
+    petTypeAlreadyExists: 'Tipo de mascota ya existe',
+    petTypeCreated: 'Tipo de mascota creado correctamente',
+    petTypeUpdated: 'Tipo de mascota actualizado correctamente',
+    petTypeDeleted: 'Tipo de mascota eliminado correctamente',
+
+    attributePetNotFound: 'Atributo no encontrado',
+    attributeCreated: 'Atributo creado correctamente',
+    attributeUpdated: 'Atributo actualizado correctamente',
+    attributeDeleted: 'Atributo eliminado correctamente',
+    attributeAlreadyExists: 'Atributo ya existe',
+    allowedValuesNotArray: 'Los valores permitidos deben ser un array',
   },
 };
 

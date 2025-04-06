@@ -8,6 +8,8 @@ import {
   Post,
   Put,
   BadRequestException,
+  Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { BaseController } from '@modules/common/base/admin.controller';
@@ -39,6 +41,7 @@ export abstract class BaseEntityController extends BaseController {
   async findOne(@Param('id') id: string, @Res() res: Response) {
     try {
       const data = await this.service.findOne(+id);
+      if (data === null) throw new NotFoundException(this.entityNotFound);
       return this.successResponse(res, messages.success, data);
     } catch (error) {
       return this.handleError(res, error);
@@ -69,6 +72,21 @@ export abstract class BaseEntityController extends BaseController {
       dto.id = parsedId;
       const updated = await this.service.update(id, dto);
       return this.successResponse(res, this.updatedMessage, updated);
+    } catch (error) {
+      return this.handleError(res, error);
+    }
+  }
+
+  @Delete(':id')
+  async remove(@Param('id') id: string, @Res() res: Response) {
+    try {
+      const parsedId = parseInt(id, 10);
+      if (isNaN(parsedId)) {
+        throw new BadRequestException(this.entityNotFound);
+      }
+
+      const result = await this.service.remove(parsedId);
+      return this.successResponse(res, this.deletedMessage, result);
     } catch (error) {
       return this.handleError(res, error);
     }

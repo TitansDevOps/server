@@ -11,6 +11,7 @@ import { MailModule } from '@modules/mail/mail.module';
   imports: [
     UsersModule,
     MailModule,
+
     JwtModule.register({
       global: true,
       secret: jwtConstants.secret,

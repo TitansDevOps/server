@@ -1,4 +1,3 @@
-import { AuthGuard } from '@modules/auth/guard/auth.guard';
 import {
   Controller,
   Get,
@@ -6,80 +5,61 @@ import {
   Body,
   Param,
   Res,
-  UseGuards,
   Delete,
+  Put,
+  Query,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { messages } from 'src/messages/messages';
-
-import { Role } from '../common/enums/rol.enum';
-import { Roles } from '../auth/decorators/roles.decorator';
-import { RolesGuard } from '../auth/guard/roles.guard';
-import { Public } from '@modules/auth/decorators/public.decorator';
-import { BaseController } from '@modules/common/base/admin.controller';
-
-import { PetsDto } from '@modules/pets/dto/pets.dto';
-import { PetsService } from '@modules/pets/pets.service';
+import { Role } from '@modules/common/enums/rol.enum';
+import { Auth } from '@modules/auth/decorators/auth.decorator';
+import { BaseEntityController } from '@modules/common/base/base-entity.controller';
+import { PetsService } from './pets.service';
+import { PaginationQueryDto } from '@modules/common/dto/pagination/pagination-query.dto';
 
 @Controller('pets')
-@UseGuards(AuthGuard, RolesGuard)
-export class PetsController extends BaseController {
+export class PetsController extends BaseEntityController {
+  protected service = this.petsService;
+  protected entityNotFound: string = messages.petNotFound;
+  protected entityAlreadyExists: string = messages.petAlreadyExists;
+  protected createdMessage: string = messages.petCreated;
+  protected updatedMessage: string = messages.petUpdated;
+  protected deletedMessage: string = messages.petDeleted;
+  protected resourceName: string = 'pet';
+
   constructor(private readonly petsService: PetsService) {
     super();
   }
 
-  @Public()
   @Get()
-  async findAll(@Res() res: Response) {
-    try {
-      const response = await this.petsService.findAll();
-      return this.successResponse(res, messages.success, response);
-    } catch (error) {
-      return this.badRequestResponse(res, error?.message, error?.response);
-    }
+  async findAll(@Query() query: PaginationQueryDto, @Res() res: Response) {
+    return super.findAll(query, res);
   }
 
-  @Public()
   @Get(':id')
-  async findOne(@Param('id') id: number, @Res() res: Response) {
-    try {
-      const response = await this.petsService.findOne(+id);
-      return this.successResponse(res, messages.success, response.toJSON());
-    } catch (error) {
-      this.badRequestResponse(res, error?.message, error?.response);
-    }
+  async findOne(@Param('id') id: string, @Res() res: Response) {
+    return super.findOne(id, res);
   }
 
-  @Roles(Role.ADMIN, Role.OPERATOR)
-  @Post('create')
-  async create(@Body() petsDto: PetsDto, @Res() res: Response) {
-    try {
-      const response = await this.petsService.create(petsDto);
-      return this.successResponse(res, messages.petCreated, response.toJSON());
-    } catch (error) {
-      this.badRequestResponse(res, messages.error, error.message);
-    }
+  @Auth(Role.ADMIN, Role.OPERATOR)
+  @Post()
+  async create(@Body() createDto: any, @Res() res: Response) {
+    return super.create(createDto, res);
   }
 
-  @Roles(Role.ADMIN, Role.OPERATOR)
-  @Post('update')
-  async update(@Body() petsDto: PetsDto, @Res() res: Response) {
-    try {
-      const response = await this.petsService.update(petsDto);
-      return this.createdResponse(res, messages.petUpdated, response.toJSON());
-    } catch (error) {
-      return this.badRequestResponse(res, error?.message, error?.response);
-    }
+  @Auth(Role.ADMIN, Role.OPERATOR)
+  @Put(':id')
+  async update(
+    @Param('id') id: string,
+    @Body() updateDto: any,
+    @Res() res: Response,
+  ) {
+    return super.update(id, updateDto, res);
   }
 
-  @Roles(Role.ADMIN, Role.OPERATOR)
+  @Auth(Role.ADMIN, Role.OPERATOR)
   @Delete(':id')
-  async remove(@Param('id') id: number, @Res() res: Response) {
-    try {
-      const response = await this.petsService.remove(+id);
-      return this.successResponse(res, messages.petDeleted, response);
-    } catch (error) {
-      return this.badRequestResponse(res, error?.message, error?.response);
-    }
+  async remove(@Param('id') id: string, @Res() res: Response) {
+    return super.remove(id, res);
   }
 }

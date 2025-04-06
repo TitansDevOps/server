@@ -13,7 +13,7 @@ export abstract class BaseService<T, Dto extends IBaseDto<T>>
   protected entityNotFound: string = messages.entityNotFound;
   constructor(
     protected readonly repository: Repository<T>,
-    private readonly dtoClass: new (entity: T) => Dto,
+    protected readonly dtoClass: new (entity: T) => Dto,
   ) {}
 
   async findAll(
@@ -51,5 +51,13 @@ export abstract class BaseService<T, Dto extends IBaseDto<T>>
     const updated = this.repository.merge(entity, input);
     const saved = await this.repository.save(updated);
     return new this.dtoClass(saved).toJson();
+  }
+
+  async remove(id: number): Promise<any> {
+    const entity = await this.repository.findOne({ where: { id } as any });
+    if (!entity) throw new NotFoundException(this.entityNotFound);
+
+    await this.repository.remove(entity);
+    return { success: true };
   }
 }

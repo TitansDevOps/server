@@ -10,23 +10,25 @@ import {
   Query,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { AdoptionCenterService } from './adoption-center.service';
-import { BaseEntityController } from '@modules/common/base/base-entity.controller';
-import { Auth } from '@modules/auth/decorators/auth.decorator';
 import { Role } from '@modules/common/enums/rol.enum';
+import { Auth } from '@modules/auth/decorators/auth.decorator';
+
 import { messages } from 'src/messages/messages';
+import { BaseEntityController } from '@modules/common/base/base-entity.controller';
 import { PaginationQueryDto } from '@modules/common/dto/pagination/pagination-query.dto';
+import { PetTypeService } from '@modules/petTypes/pet-type.service';
 
-@Controller('adoption-centers')
-export class AdoptionCenterController extends BaseEntityController {
-  protected service = this.adoptionCenterService;
-  protected entityNotFound: string = messages.adoptionCenterNotFound;
-  protected createdMessage: string = messages.adoptionCenterCreated;
-  protected updatedMessage: string = messages.adoptionCenterUpdated;
-  protected deletedMessage: string = messages.adoptionCenterDeleted;
-  protected resourceName: string = 'adoption center';
+@Controller('pet-types')
+export class PetTypeController extends BaseEntityController {
+  protected service = this.petTypeService;
+  protected entityNotFound: string = messages.petTypeNotFound;
+  protected entityAlreadyExists: string = messages.petTypeAlreadyExists;
+  protected createdMessage: string = messages.petTypeCreated;
+  protected updatedMessage: string = messages.petTypeUpdated;
+  protected deletedMessage: string = messages.petTypeDeleted;
+  protected resourceName: string = 'pet type';
 
-  constructor(private readonly adoptionCenterService: AdoptionCenterService) {
+  constructor(private readonly petTypeService: PetTypeService) {
     super();
   }
 
@@ -43,7 +45,12 @@ export class AdoptionCenterController extends BaseEntityController {
   @Auth(Role.ADMIN, Role.OPERATOR)
   @Post()
   async create(@Body() createDto: any, @Res() res: Response) {
-    return super.create(createDto, res);
+    try {
+      const created = await this.petTypeService.createWithAttributes(createDto);
+      return this.successResponse(res, this.createdMessage, created);
+    } catch (error) {
+      return this.handleError(res, error);
+    }
   }
 
   @Auth(Role.ADMIN, Role.OPERATOR)

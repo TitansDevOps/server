@@ -15,7 +15,8 @@ import { FileModule } from '@modules/file/file.module';
 
 import { AppController } from '@modules/admin/app.controller';
 import { AdoptionCenterModule } from '@modules/adoption-center/adoption-center.module';
-import { petsModule } from '@modules/pets/pets.module';
+import { PetsModule } from '@modules/pets/pets.module';
+import { PetTypesModule } from '@modules/petTypes/pet-type.module';
 
 config();
 
@@ -57,7 +58,8 @@ config();
     MailModule,
     FileModule,
     AdoptionCenterModule,
-    petsModule,
+    PetsModule,
+    PetTypesModule,
   ],
   controllers: [AppController],
   providers: [
