@@ -42,7 +42,7 @@ export const resetPasswordTemplate = (
             .button {
                 display: inline-block;
                 background-color: #ff7b00;
-                color: #ffffff;
+                color: #ffffff !important;
                 text-decoration: none;
                 padding: 12px 25px;
                 border-radius: 8px;
