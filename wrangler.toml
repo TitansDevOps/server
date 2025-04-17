@@ -1,3 +1,4 @@
-name = "backs"
+# wrangler.toml
+name = 'serverpets'
 main = "dist/main.js"
 compatibility_date = "2025-04-18"
