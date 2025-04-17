@@ -100,6 +100,8 @@ const message = {
     attributeUpdated: 'Attribute updated successfully',
     attributeDeleted: 'Attribute deleted successfully',
     attributeAlreadyExists: 'Attribute already exists',
+
+    errorPetsInAdoptionCenter: 'There are pets in this adoption center',
   },
 
   outputSpanishMessages: {
@@ -200,6 +202,8 @@ const message = {
     attributeDeleted: 'Atributo eliminado correctamente',
     attributeAlreadyExists: 'Atributo ya existe',
     allowedValuesNotArray: 'Los valores permitidos deben ser un array',
+    errorPetsInAdoptionCenter:
+      'No se puede eliminar, hay mascotas en este centro de adopción',
   },
 };
 

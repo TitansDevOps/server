@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { AdoptionCenterModule } from '@modules/adoption-center/adoption-center.module';
@@ -14,7 +14,7 @@ import { AttributeController } from '@modules/petTypes/attribute.controller';
 @Module({
   imports: [
     TypeOrmModule.forFeature([PetType, Attribute, PetAttributeValue]),
-    AdoptionCenterModule,
+    forwardRef(() => AdoptionCenterModule),
   ],
   controllers: [PetTypeController, AttributeController],
   providers: [PetTypeService, AttributeService, PetAttributeValueService],

@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  forwardRef,
+} from '@nestjs/common';
 import { BaseService } from '@modules/common/base/base.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -7,6 +12,8 @@ import { AdoptionCenterDto } from './dto/adoption-center.dto';
 import { GetFilesByEntityDto } from '@modules/file/file/dto/get-files-entity.dto';
 import { FileService } from '@modules/file/file/file.service';
 import { PaginationQueryDto } from '@modules/common/dto/pagination/pagination-query.dto';
+import { PetsService } from '@modules/pets/pets.service';
+import { messages } from 'src/messages/messages';
 
 @Injectable()
 export class AdoptionCenterService extends BaseService<
@@ -19,6 +26,8 @@ export class AdoptionCenterService extends BaseService<
     @InjectRepository(AdoptionCenter)
     private readonly adoptionCenterRepository: Repository<AdoptionCenter>,
     private readonly fileService: FileService,
+    @Inject(forwardRef(() => PetsService))
+    private readonly petsService: PetsService,
   ) {
     super(adoptionCenterRepository, AdoptionCenterDto);
   }
@@ -74,5 +83,12 @@ export class AdoptionCenterService extends BaseService<
       ...center,
       files: await Promise.all(files.map((file) => file.toJson())),
     };
+  }
+
+  async validateRemove(id: number) {
+    const pets = await this.petsService.findByAdoptionCenterId(id);
+    if (pets.length > 0) {
+      throw new BadRequestException(messages.errorPetsInAdoptionCenter);
+    }
   }
 }

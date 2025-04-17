@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { FileModule } from '@modules/file/file.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
@@ -12,10 +12,11 @@ import { PetTypesModule } from '@modules/petTypes/pet-type.module';
   imports: [
     TypeOrmModule.forFeature([Pets]),
     FileModule,
-    AdoptionCenterModule,
-    PetTypesModule,
+    forwardRef(() => AdoptionCenterModule),
+    forwardRef(() => PetTypesModule),
   ],
   controllers: [PetsController],
   providers: [PetsService],
+  exports: [PetsService],
 })
 export class PetsModule {}

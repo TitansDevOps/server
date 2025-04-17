@@ -7,6 +7,7 @@ export class ObjectFile {
   private size: number | null;
   private filePath: string | null;
   private webPath: string | null;
+  private name: string | null;
 
   constructor(
     id: number | null = null,
@@ -17,6 +18,7 @@ export class ObjectFile {
     size: number | null = null,
     filePath: string | null = null,
     webPath: string | null = null,
+    name: string | null = null,
   ) {
     this.id = id;
     this.entity = entity;
@@ -26,6 +28,7 @@ export class ObjectFile {
     this.size = size;
     this.filePath = filePath;
     this.webPath = webPath;
+    this.name = name;
   }
 
   public async getId() {
@@ -92,6 +95,14 @@ export class ObjectFile {
     return this.webPath;
   }
 
+  public async setName(name: string | null) {
+    this.name = name;
+  }
+
+  public async getName() {
+    return this.name;
+  }
+
   public async toJson(): Promise<object> {
     return {
       id: this.id,
@@ -102,6 +113,7 @@ export class ObjectFile {
       size: this.size,
       filePath: this.filePath,
       webPath: this.webPath,
+      name: this.name,
     };
   }
 }

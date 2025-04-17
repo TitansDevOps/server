@@ -24,6 +24,7 @@ export abstract class BaseService<T, Dto extends IBaseDto<T>>
       repository: this.repository,
       pagination,
       where,
+      order: { id: 'ASC' } as any,
     });
 
     return new PaginatedResponseDto<Partial<T>>({

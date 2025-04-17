@@ -59,6 +59,12 @@ export class AdoptionCenterController extends BaseEntityController {
   @Auth(Role.ADMIN, Role.OPERATOR)
   @Delete(':id')
   async remove(@Param('id') id: string, @Res() res: Response) {
-    return super.remove(id, res);
+    try {
+      const parsedId = parseInt(id, 10);
+      await this.service.validateRemove(parsedId);
+      return super.remove(id, res);
+    } catch (error) {
+      return this.handleError(res, error);
+    }
   }
 }

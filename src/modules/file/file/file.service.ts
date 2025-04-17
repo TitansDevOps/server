@@ -140,7 +140,11 @@ export class FileService {
       await this.fileEntityOwnerRepository.save(fileEntityOwner);
     }
 
-    return savedFiles;
+    const dto = new GetFilesByEntityDto();
+    dto.entity = createFileEntityDto.typeEntity;
+    dto.idEntities = [createFileEntityDto.entityOwnerId];
+    const newFiles = this.getFilesByEntity(dto);
+    return newFiles;
   }
 
   async initSaveFiles(
@@ -202,8 +206,9 @@ export class FileService {
 
       await Promise.all(
         deleteFileDto.file.map(async (oFile) => {
+          const idFile = oFile.id;
           const FileEntityOwner = await this.fileEntityOwnerRepository.findOne({
-            where: { idFile: oFile.id },
+            where: { idFile: idFile },
           });
 
           if (FileEntityOwner) {
@@ -211,7 +216,7 @@ export class FileService {
           }
 
           const file = await this.fileRepository.findOne({
-            where: { id: oFile.id },
+            where: { id: idFile },
           });
 
           if (!file) {
@@ -247,8 +252,8 @@ export class FileService {
           }
 
           const filePathOrigin = path.join(
-            __dirname,
-            `../../../uploads/${entityFileType}/${entityFile.typeEntity.toLocaleLowerCase()}/${file.filename}`,
+            process.cwd(),
+            `uploads/${entityFileType}/${entityFile.typeEntity.toLocaleLowerCase()}/${file.filename}`,
           );
 
           await new Promise((resolve, reject) => {
@@ -266,7 +271,7 @@ export class FileService {
 
       return deletedFiles;
     } catch (error) {
-      throw new Error(error);
+      throw new BadRequestException(error);
     }
   }
 
@@ -326,6 +331,7 @@ export class FileService {
         file.size,
         file.filename,
         `${controllerRoute}/${entity.typeEntity.toLocaleLowerCase()}/${file.filename}`,
+        file.name,
       );
     });
 

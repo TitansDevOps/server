@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  Inject,
+  Injectable,
+  NotFoundException,
+  forwardRef,
+} from '@nestjs/common';
 import { BaseService } from '@modules/common/base/base.service';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeepPartial } from 'typeorm';
@@ -20,12 +25,12 @@ export class PetsService extends BaseService<Pets, PetsDto> {
   constructor(
     @InjectRepository(Pets)
     private readonly petsRepository: Repository<Pets>,
-
     private readonly fileService: FileService,
+    @Inject(forwardRef(() => AdoptionCenterService))
     private readonly adoptionCenterService: AdoptionCenterService,
     private readonly petTypeService: PetTypeService,
     private readonly attributeService: AttributeService,
-    private readonly petAttributeValueService: PetAttributeValueService, // Nuevo servicio
+    private readonly petAttributeValueService: PetAttributeValueService,
   ) {
     super(petsRepository, PetsDto);
   }
@@ -207,5 +212,13 @@ export class PetsService extends BaseService<Pets, PetsDto> {
     await this.petAttributeValueService.updateValues(id, attributeValuesInput);
 
     return this.findOne(id);
+  }
+
+  async findByAdoptionCenterId(id: number) {
+    const pets = await this.petsRepository.find({
+      where: { adoptionCenterId: id },
+    });
+
+    return pets.map((pet) => new PetsDto(pet));
   }
 }
