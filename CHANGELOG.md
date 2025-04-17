@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.4.0](https://github.com/TitansDevOps/server/compare/v1.3.0...v1.4.0) (2025-04-17)
+
+
+### Features
+
+* config for cloudfare deploy ([6d45d21](https://github.com/TitansDevOps/server/commit/6d45d217f921689b6ad134fb647b881ab49765c0))
+* config for cloudfare deploy ([ee8cb82](https://github.com/TitansDevOps/server/commit/ee8cb8203cf775a043e2db25ea23de8e93c9b129))
+* config for cloudfare deploy ([1db4146](https://github.com/TitansDevOps/server/commit/1db4146d02e893ee43805723981d99426a57945c))
+* gestionar archivos en frontend ([c086cbd](https://github.com/TitansDevOps/server/commit/c086cbd4f49b0317904d9c2401b22cd5f46bb8d5))
+* token in register api ([bc190f3](https://github.com/TitansDevOps/server/commit/bc190f32ee0f93c4b8bb6a3d8313db4567924ec5))
+
+
+### Bug Fixes
+
+* circular dependencies and validations ([805fdb4](https://github.com/TitansDevOps/server/commit/805fdb421c89aa3fe8d2074232fd08b41d26d536))
+* reset password email template ([3f0f0f9](https://github.com/TitansDevOps/server/commit/3f0f0f9e152ccfdb48115a43d2ce78ba8f0eeb87))
+
 ## [1.3.0](https://github.com/TitansDevOps/server/compare/v1.2.0...v1.3.0) (2025-04-06)
 
 
