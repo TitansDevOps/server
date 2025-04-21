@@ -6,6 +6,16 @@ import { ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter } from '../src/modules/admin/all-exceptions.filter';
 import { json, urlencoded } from 'body-parser';
 
+import { register } from 'tsconfig-paths';
+import { resolve } from 'path';
+
+register({
+  baseUrl: __dirname,
+  paths: {
+    '@modules/*': [resolve(__dirname, '../src/modules/*')]
+  }
+});
+
 export default async function handler(req: NowRequest, res: NowResponse) {
   const app = await NestFactory.create(AppModule);
 
