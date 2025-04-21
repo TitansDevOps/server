@@ -1,3 +1,4 @@
+import 'tsconfig-paths/register';
 import { NowRequest, NowResponse } from '@vercel/node'; 
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '../src/app.module';
