@@ -17,7 +17,7 @@
             "src": "/(.*)",
             "dest": "api/index.ts",
             "headers": {
-                "Access-Control-Allow-Origin": "https://devopsclient.netlify.app",
+                "Access-Control-Allow-Origin": "https://pets-client-sepia.vercel.app",
                 "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
                 "Access-Control-Allow-Headers": "Content-Type, Authorization",
                 "Access-Control-Allow-Credentials": "true"
