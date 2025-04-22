@@ -16,7 +16,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     const app = await NestFactory.create(AppModule);
 
-    // Configuración de la aplicación
     app.useGlobalPipes(
       new ValidationPipe({
         whitelist: true,
@@ -26,7 +25,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     );
 
     app.enableCors({
-      origin: '*',
+      origin: process.env.URL_CLIENT,
       methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
       credentials: true,
     });
