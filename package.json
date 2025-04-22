@@ -5,6 +5,10 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "_moduleAliases": {
+    "@modules": "./src/modules",
+    "src": "./src"
+  },
   "scripts": {
     "db:init": "ts-node  \"./src/config/db-init.ts\"",
     "build": "nest build",
@@ -19,7 +23,9 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "build:vercel": "nest build && cp -r src/ dist/ && cp tsconfig.json package.json dist/",
+    "start:vercel": "node api/index.js"
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.0",

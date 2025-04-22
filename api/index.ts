@@ -1,7 +1,7 @@
-// Configuración de aliases (SOLUCIÓN PRINCIPAL)
 import 'module-alias/register';
 require('module-alias').addAliases({
-  '@modules': __dirname + '/../src/modules'
+  '@modules': __dirname + '/../src/modules',
+  'src': __dirname + '/../src'
 });
 
 // Imports esenciales
