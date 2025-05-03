@@ -34,7 +34,12 @@ export class PetTypeController extends BaseEntityController {
 
   @Get()
   async findAll(@Query() query: PaginationQueryDto, @Res() res: Response) {
-    return super.findAll(query, res);
+    try {
+      const paginatedResponse = await this.petTypeService.findAll(query);
+      return this.successResponse(res, messages.error, paginatedResponse);
+    } catch (error) {
+      return this.handleError(res, error);
+    }
   }
 
   @Get(':id')
@@ -66,6 +71,12 @@ export class PetTypeController extends BaseEntityController {
   @Auth(Role.ADMIN, Role.OPERATOR)
   @Delete(':id')
   async remove(@Param('id') id: string, @Res() res: Response) {
-    return super.remove(id, res);
+    try {
+      const parsedId = parseInt(id, 10);
+      const response = await this.petTypeService.remove(parsedId);
+      return this.successResponse(res, messages.error, response);
+    } catch (error) {
+      return this.handleError(res, error);
+    }
   }
 }

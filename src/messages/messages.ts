@@ -102,6 +102,8 @@ const message = {
     attributeAlreadyExists: 'Attribute already exists',
 
     errorPetsInAdoptionCenter: 'There are pets in this adoption center',
+
+    relationConflict: 'Cannot delete because there are related data.',
   },
 
   outputSpanishMessages: {
@@ -204,6 +206,8 @@ const message = {
     allowedValuesNotArray: 'Los valores permitidos deben ser un array',
     errorPetsInAdoptionCenter:
       'No se puede eliminar, hay mascotas en este centro de adopción',
+
+    relationConflict: 'No se puede eliminar porque hay datos relacionados.',
   },
 };
 

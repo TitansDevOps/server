@@ -1,4 +1,4 @@
-import { NotFoundException } from '@nestjs/common';
+import { NotFoundException, ConflictException } from '@nestjs/common';
 import { Repository, FindOptionsWhere, DeepPartial } from 'typeorm';
 import { PaginationQueryDto } from '@modules/common/dto/pagination/pagination-query.dto';
 import { PaginatedResponseDto } from '@modules/common/dto/pagination/paginated-response.dto';
@@ -58,7 +58,18 @@ export abstract class BaseService<T, Dto extends IBaseDto<T>>
     const entity = await this.repository.findOne({ where: { id } as any });
     if (!entity) throw new NotFoundException(this.entityNotFound);
 
-    await this.repository.remove(entity);
-    return { success: true };
+    try {
+      await this.repository.remove(entity);
+      return { success: true };
+    } catch (error: any) {
+      if (
+        error.code === '23503' ||
+        error.message?.includes('a foreign key constraint fails')
+      ) {
+        throw new ConflictException(messages.relationConflict);
+      }
+
+      throw error;
+    }
   }
 }
