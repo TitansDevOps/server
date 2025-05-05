@@ -23,7 +23,10 @@ export class PetTypeDto extends BaseDto<PetType> {
       } as any;
     }
 
-    return base;
+    return {
+      ...base,
+      attributes: '',
+    } as any;
   }
 
   toList(): Partial<PetType> {
